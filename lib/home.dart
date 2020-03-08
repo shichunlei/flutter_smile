@@ -4,6 +4,7 @@ import 'package:smile/view/line.dart';
 import 'package:smile/view/moments.dart';
 import 'package:smile/view/setting.dart';
 import 'config/constant.dart';
+import 'icon_font.dart';
 import 'view/mood.dart';
 
 class HomePage extends StatefulWidget {
@@ -71,11 +72,11 @@ class _HomePageState extends State<HomePage>
             BottomNavigationBarItem(
                 icon: Icon(Icons.favorite), title: Text('Mood')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.widgets), title: Text('Line')),
+                icon: Icon(IconFont.line), title: Text('Line')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.pages), title: Text('Gratitude')),
+                icon: Icon(IconFont.gratitude), title: Text('Gratitude')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.storage), title: Text('Moment')),
+                icon: Icon(IconFont.moment), title: Text('Moment')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.settings), title: Text('Setting'))
           ],

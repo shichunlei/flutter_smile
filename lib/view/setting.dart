@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smile/utils/route_util.dart';
+import 'package:smile/widgets/select_text.dart';
 
 import 'setting/account.dart';
 import 'setting/daily_reminder.dart';
@@ -28,72 +29,29 @@ class _SettingPageState extends State<SettingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(
-        title: Text('Setting'),
-        centerTitle: true,
-        elevation: 0.0,
-      ),
+      appBar: AppBar(title: Text('Setting'), centerTitle: true),
       body: Column(
         children: [
-          SizedBox(height: 3),
-          Material(
-            color: Colors.white,
-            child: InkWell(
-              onTap: () {
-                pushNewPage(context, AccountPage());
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  children: <Widget>[
-                    Text('My Account'),
-                    Icon(Icons.arrow_right),
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                ),
-                height: 55.0,
-              ),
-            ),
+          SizedBox(height: 10),
+          SelectTextItem(
+            title: 'My Account',
+            onTap: () {
+              pushNewPage(context, AccountPage());
+            },
           ),
           SizedBox(height: 3),
-          Material(
-            color: Colors.white,
-            child: InkWell(
-              onTap: () {
-                pushNewPage(context, DailyReminderPage());
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  children: <Widget>[
-                    Text('Daily Reminder'),
-                    Icon(Icons.arrow_right),
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                ),
-                height: 55.0,
-              ),
-            ),
+          SelectTextItem(
+            title: 'Daily Reminder',
+            onTap: () {
+              pushNewPage(context, DailyReminderPage());
+            },
           ),
           SizedBox(height: 3),
-          Material(
-            color: Colors.white,
-            child: InkWell(
-              onTap: () {
-                pushNewPage(context, PasscodePage());
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  children: <Widget>[
-                    Text('Passcode'),
-                    Icon(Icons.arrow_right),
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                ),
-                height: 55.0,
-              ),
-            ),
+          SelectTextItem(
+            title: 'Passcode',
+            onTap: () {
+              pushNewPage(context, PasscodePage());
+            },
           ),
         ],
       ),

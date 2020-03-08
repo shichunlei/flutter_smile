@@ -22,8 +22,7 @@ class _GratitudePageState extends State<GratitudePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar:
-          AppBar(centerTitle: true, elevation: 0.0, title: Text('Gratitude')),
+      appBar: AppBar(centerTitle: true, title: Text('Gratitude')),
       body: null,
     );
   }

@@ -25,7 +25,7 @@ class _LinePageState extends State<LinePage> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-          centerTitle: true, title: Text('Emotion Line'), elevation: 0.0),
+          centerTitle: true, title: Text('Emotion Line')),
       body: Column(
         children: [
           Container(
@@ -64,7 +64,7 @@ class _LinePageState extends State<LinePage> {
           ),
           Expanded(
             child: Container(
-              margin: EdgeInsets.only(left: 20, right: 20),
+              margin: EdgeInsets.only(left: 20, right: 20,bottom: 20),
               decoration: BoxDecoration(color: Color(0xFFFCF6F7)),
             ),
           )
