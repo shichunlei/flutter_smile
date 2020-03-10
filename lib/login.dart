@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:xml/xml.dart' as xml;
+
+import 'package:smile/splash.dart';
+import 'package:smile/utils/route_util.dart';
 
 import 'config/constant.dart';
+import 'dialog.dart';
+import 'utils/utils.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -12,26 +18,31 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String username = 'info@yok.com.cn';
-  String password = '980219';
+  static var username = '';
+  static var password = '';
 
-  var envelope;
+  List<dynamic> itemsList = List();
+
+  TextEditingController _userController = TextEditingController();
+  TextEditingController _pwController = TextEditingController();
+
+  FocusNode _pwFocusNode = FocusNode();
+
+  bool obscureText = true;
 
   @override
   void initState() {
     super.initState();
 
-    envelope = '''
-    <?xml version="1.0" encoding="utf-8"?>
-    <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-      <soap:Body>
-        <IsLogin xmlns="http://tempuri.org/">
-          <username>$username</username>
-          <pw>$password</pw>
-        </IsLogin>
-      </soap:Body>
-    </soap:Envelope>
-    ''';
+    _userController.addListener(() {
+      setState(() {});
+    });
+    _pwController.addListener(() {
+      setState(() {});
+    });
+
+    _userController.text = "info@yok.com.cn";
+    _pwController.text = '980219';
   }
 
   @override
@@ -43,19 +54,111 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Constant.kPrimaryColor,
-      body: Center(
-        child: RaisedButton(
-          child: Text('登录'),
-          onPressed: () {
-            _getLogin();
-          },
+      body: SingleChildScrollView(
+        padding: EdgeInsets.only(left: 40, right: 40, top: 100),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset("assets/smile_logo.png",
+                width: Utils.width * 0.3, height: Utils.width * 0.3),
+            SizedBox(height: 30),
+            TextFormField(
+              controller: _userController,
+              onEditingComplete: () =>
+                  FocusScope.of(context).requestFocus(_pwFocusNode),
+              keyboardType: TextInputType.emailAddress,
+              autofocus: false,
+              decoration: InputDecoration(
+                icon: Icon(Icons.email, color: Colors.black),
+                hintText: 'Email',
+                contentPadding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Colors.cyan[300], width: 0.8)),
+                enabledBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color(0xFF888888), width: 0.8)),
+              ),
+            ),
+            SizedBox(height: 10),
+            TextFormField(
+              controller: _pwController,
+              focusNode: _pwFocusNode,
+              autofocus: false,
+              obscureText: obscureText,
+              textInputAction: TextInputAction.done,
+              decoration: InputDecoration(
+                icon: Icon(Icons.lock, color: Colors.black),
+                hintText: 'Password',
+                contentPadding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Colors.cyan[300], width: 0.8)),
+                enabledBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color(0xFF888888), width: 0.8)),
+                suffixIcon: IconButton(
+                  color: Theme.of(context).primaryColor,
+                  icon: Icon(
+                      !obscureText ? Icons.visibility : Icons.visibility_off,
+                      color: Colors.black),
+                  onPressed: () {
+                    setState(() {
+                      obscureText = !obscureText;
+                    });
+                  },
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20, bottom: 10),
+              height: 45,
+              width: double.infinity,
+              child: RaisedButton(
+                onPressed: _userController.text.isNotEmpty &&
+                        _pwController.text.isNotEmpty
+                    ? () {
+                        showLoadingDialog(context, "登录中...");
+                        _getLogin();
+                      }
+                    : null,
+                color: Colors.cyan[300],
+                child: Text(
+                  '登 录',
+                  style: TextStyle(color: Colors.white, fontSize: 20.0),
+                ),
+              ),
+            ),
+            Container(
+              child: InkWell(
+                onTap: () {},
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('忘记密码？'),
+                ),
+              ),
+              alignment: Alignment.centerRight,
+            )
+          ],
         ),
       ),
     );
   }
 
   Future _getLogin() async {
-    var response =
+    var envelope = '''
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <IsLogin xmlns="http://tempuri.org/">
+        <username>${_userController.text.toString()}</username>
+        <pw>${_pwController.text.toString()}</pw>
+    </IsLogin>
+  </soap:Body>
+</soap:Envelope>
+''';
+
+    http.Response response =
         await http.post('http://www.yoksoft.com/webapi/webservice1.asmx',
             headers: {
               "Content-Type": "text/xml; charset=utf-8",
@@ -65,5 +168,40 @@ class _LoginPageState extends State<LoginPage> {
             body: envelope);
     var _response = response.body;
     print("===========> $_response");
+
+    await _parsing(_response);
+  }
+
+  Future _parsing(var _response) async {
+    var _document = xml.parse(_response);
+    Iterable<xml.XmlElement> items =
+        _document.findAllElements('IsLoginResponse');
+    items.map((xml.XmlElement item) {
+      var _addResult = _getValue(item.findElements("IsLoginResult"));
+      itemsList.add(_addResult);
+    }).toList();
+
+    print("itemsList: $itemsList");
+
+    String _testValue = itemsList.first.toString();
+
+    print("itemsList: $_testValue");
+
+    Navigator.pop(context);
+
+    if (_testValue == 'ok') {
+      print("登录失败！");
+      pushAndRemovePage(context, SplashPage());
+    } else if (_testValue == 'error') {
+      print("登录失败！");
+    }
+  }
+
+  _getValue(Iterable<xml.XmlElement> items) {
+    var textValue;
+    items.map((xml.XmlElement node) {
+      textValue = node.text;
+    }).toList();
+    return textValue;
   }
 }

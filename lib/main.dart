@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 
 import 'config/constant.dart';
 import 'login.dart';
-import 'splash.dart';
 import 'utils/sp_util.dart';
 
 void main() async {
