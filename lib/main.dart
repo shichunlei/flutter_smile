@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'config/constant.dart';
+import 'login.dart';
 import 'splash.dart';
 import 'utils/sp_util.dart';
 
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Constant.kPrimaryColor,
         accentColor: Colors.cyan[300],
       ),
-      home: SplashPage(),
+      home: LoginPage(),
     );
   }
 }

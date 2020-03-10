@@ -7,7 +7,7 @@ import 'package:smile/models/base_result.dart';
 class DioUtil {
   static Dio _dio;
 
-  static const String API_PREFIX = '';
+  static String BASE_URL = "http://www.yoksoft.com/webapi/smile/SmileApi.ashx";
   static const int CONNECT_TIMEOUT = 10000;
   static const int RECEIVE_TIMEOUT = 3000;
 
@@ -21,7 +21,7 @@ class DioUtil {
   DioUtil._internal() {
     if (_dio == null) {
       BaseOptions options = BaseOptions(
-        baseUrl: API_PREFIX,
+        baseUrl: BASE_URL,
         contentType: Headers.jsonContentType,
         responseType: ResponseType.plain,
         receiveDataWhenStatusError: false,
