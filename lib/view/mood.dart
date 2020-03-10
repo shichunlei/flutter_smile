@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:smile/config/api.dart';
 import 'package:smile/config/constant.dart';
 import 'package:smile/widgets/dialog.dart';
 import 'package:smile/widgets/select_text.dart';
+
+import '../dialog.dart';
 
 class MoodPage extends StatefulWidget {
   MoodPage({Key key}) : super(key: key);
@@ -11,28 +16,24 @@ class MoodPage extends StatefulWidget {
 }
 
 class _MoodPageState extends State<MoodPage> {
-  TextEditingController _nameController = TextEditingController();
+  TextEditingController _notesController = TextEditingController();
 
-  FocusNode _nameFocusNode = FocusNode();
+  FocusNode _focusNode = FocusNode();
 
   GlobalKey _formKey = GlobalKey<FormState>();
 
-  double rating = 0;
-
-  String moodType = '';
+  String emotionType = '';
+  String diaryDate;
+  double emotionScore = 0;
 
   @override
   void initState() {
     super.initState();
-    // 监听输入内容的变化
-    _nameController.addListener(() {
-      print(_nameController.text);
-    });
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
+    _notesController?.dispose();
     super.dispose();
   }
 
@@ -45,25 +46,32 @@ class _MoodPageState extends State<MoodPage> {
           Form(
               key: _formKey,
               child: Column(children: <Widget>[
-                TextFormField(
-                    controller: _nameController,
-                    maxLines: 1,
-                    validator: (val) => (val == null || val.isEmpty)
-                        ? "Can not be black"
-                        : null,
-                    focusNode: _nameFocusNode,
-                    decoration: InputDecoration(
-                        fillColor: Colors.white,
-                        filled: true,
-                        contentPadding: EdgeInsets.all(10.0),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0))),
-                    style: TextStyle(
-                        //设置文本框里面文字的样式
-                        color: Colors.black,
-                        backgroundColor: Colors.white,
-                        fontSize: 18)),
-                SizedBox(height: 20),
+                SelectTextItem(
+                  title: "Diary Date",
+                  content: diaryDate,
+                  onTap: () {
+                    showDatePicker(
+                      context: context,
+                      firstDate: DateTime.parse("20200101"),
+                      // 初始选中日期
+                      initialDate: DateTime.now(),
+                      // 可选日期范围第一个日期
+                      lastDate: DateTime.now(),
+                      initialDatePickerMode:
+                          DatePickerMode.day, //初始化选择模式，有day和year两种
+                    ).then((dateTime) {
+                      //选择日期后点击OK拿到的日期结果
+                      debugPrint(
+                          '当前选择了：${dateTime.year}年${dateTime.month}月${dateTime.day}日');
+
+                      setState(() {
+                        diaryDate =
+                            "${dateTime.year}-${dateTime.month}-${dateTime.day}";
+                      });
+                    });
+                  },
+                ),
+                SizedBox(height: 10),
                 SelectTextItem(
                     title: 'Mood Type',
                     onTap: () {
@@ -71,21 +79,30 @@ class _MoodPageState extends State<MoodPage> {
                         if (value != null) {
                           print('value => ${value?.name}');
 
-                          setState(() => moodType = value?.name);
+                          setState(() => emotionType = value?.name);
                         }
                       });
                     },
-                    content: moodType),
+                    content: emotionType),
                 SizedBox(height: 20),
                 Slider(
-                    label: "$rating",
-                    divisions: 10,
-                    value: rating,
-                    onChanged: (rating) {
-                      setState(() => this.rating = rating);
-                    }),
+                  label: "${emotionScore.toInt()}",
+                  divisions: 10,
+                  value: emotionScore,
+                  onChanged: (rating) {
+                    setState(() => this.emotionScore = rating);
+                  },
+                  min: -5,
+                  max: 5.0,
+                ),
+                Row(
+                  children: <Widget>[Text('Negative'), Text('Positive')],
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ),
                 SizedBox(height: 20),
                 TextFormField(
+                    focusNode: _focusNode,
+                    controller: _notesController,
                     maxLines: 8,
                     validator: (val) => (val == null || val.isEmpty)
                         ? "Can not be empty"
@@ -98,7 +115,6 @@ class _MoodPageState extends State<MoodPage> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0))),
                     style: TextStyle(
-                        //设置文本框里面文字的样式
                         color: Colors.black,
                         backgroundColor: Colors.white,
                         fontSize: 18)),
@@ -110,13 +126,40 @@ class _MoodPageState extends State<MoodPage> {
                         color: Colors.white,
                         child: Text("Submit"),
                         onPressed: () {
-                          final formState = _formKey.currentState as FormState;
-                          if (formState.validate()) {
-                            // 验证成功后保存表单内容
-                            formState.save();
-                          }
+                          if (_focusNode.hasFocus) _focusNode.unfocus();
+                          showLoadingDialog(context, "登录中...");
+                          postData(context);
                         }))
               ]))
         ]));
+  }
+
+  Future postData(BuildContext context) async {
+    var params = {
+      "Type": "MoodSave",
+      "moodJsondata": '''{"DiaryDate":"$diaryDate",
+    "EmotionType":"$emotionType",
+    "EmotionScore":"${emotionScore.toInt()}",
+    "EmotionNotes":"${_notesController.text}",
+    "UserName":"info@yok.com.cn"}'''
+    };
+
+    var _response = await APIs.postData(
+        "http://www.yoksoft.com/webapi/smile/SmileApi.ashx",
+        body: params);
+
+    if (_response != null) {
+      print("===========> $_response");
+
+      Map<String, dynamic> _json = json.decode(_response);
+
+      if (_json["success"] == 'ok') {
+        print("上传成功");
+      } else {
+        print("上传失败");
+      }
+    }
+
+    Navigator.pop(context);
   }
 }

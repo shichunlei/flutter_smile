@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:smile/config/api.dart';
 
 import 'config/constant.dart';
 import 'home.dart';
@@ -14,9 +17,13 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   Animation<double> _animation, _opacityAnimation, _scaleAnimation;
   AnimationController controller;
 
+  String days = "0";
+
   @override
   void initState() {
     super.initState();
+
+    getMoodDays();
 
     controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 3000))
@@ -107,7 +114,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
               top: Utils.topSafeHeight + 50 + Utils.width * 0.4 + 18,
               child: ScaleTransition(
                   child: FloatingActionButton(
-                      child: Text("12", style: TextStyle(fontSize: 20.0)),
+                      child: Text("$days", style: TextStyle(fontSize: 20.0)),
                       materialTapTargetSize: MaterialTapTargetSize.padded,
                       foregroundColor: Colors.pink,
                       backgroundColor: Colors.white,
@@ -116,5 +123,20 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                       }),
                   scale: _scaleAnimation))
         ]));
+  }
+
+  Future getMoodDays() async {
+    var daysResult = await APIs.getData(
+        'http://www.yoksoft.com/webapi/smile/SmileApi.ashx?Type=GetMoodDays&UserName=info@yok.com.cn');
+
+    if (daysResult != null) {
+      print("===========> $daysResult");
+
+      Map<String, dynamic> _json = json.decode(daysResult);
+
+      setState(() {
+        days = _json["MoodDays"];
+      });
+    }
   }
 }

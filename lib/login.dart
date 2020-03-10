@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart' as xml;
 
 import 'package:smile/splash.dart';
 import 'package:smile/utils/route_util.dart';
 
+import 'config/api.dart';
 import 'config/constant.dart';
 import 'dialog.dart';
 import 'utils/utils.dart';
@@ -146,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future _getLogin() async {
-    var envelope = '''
+    var body = '''
 <?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Body>
@@ -158,18 +158,21 @@ class _LoginPageState extends State<LoginPage> {
 </soap:Envelope>
 ''';
 
-    http.Response response =
-        await http.post('http://www.yoksoft.com/webapi/webservice1.asmx',
-            headers: {
-              "Content-Type": "text/xml; charset=utf-8",
-              "SOAPAction": "http://tempuri.org/IsLogin",
-              "Host": "www.yoksoft.com"
-            },
-            body: envelope);
-    var _response = response.body;
-    print("===========> $_response");
+    var _response = await APIs.postData(
+      "http://www.yoksoft.com/webapi/webservice1.asmx",
+      body: body,
+      headers: {
+        "Content-Type": "text/xml; charset=utf-8",
+        "SOAPAction": "http://tempuri.org/IsLogin",
+        "Host": "www.yoksoft.com"
+      },
+    );
 
-    await _parsing(_response);
+    if (_response != null) {
+      print("===========> $_response");
+
+      await _parsing(_response);
+    }
   }
 
   Future _parsing(var _response) async {
@@ -190,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.pop(context);
 
     if (_testValue == 'ok') {
-      print("登录失败！");
+      print("登录成功！");
       pushAndRemovePage(context, SplashPage());
     } else if (_testValue == 'error') {
       print("登录失败！");
