@@ -2,6 +2,8 @@ import 'dart:ui';
 
 /// 常量配置类
 class Constant {
+  static const String USEREMAIL = "_USER_EMAIL_";
+
   ///Tab文本字体大小
   static const double MAIN_IMAGE_SIZE = 150;
 
@@ -17,5 +19,4 @@ class Constant {
   static Color kIconTabTextColor = const Color.fromARGB(255, 0, 118, 255);
   static Color kIconTabBackgroundColor =
       const Color.fromARGB(255, 247, 243, 243);
-
 }

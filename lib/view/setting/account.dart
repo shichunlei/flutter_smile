@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:smile/config/constant.dart';
 
 class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Constant.kPrimaryColor,
       appBar: AppBar(
-        title: Text("MyAccount"),elevation: 0.0,centerTitle: true,
+        title: Text("MyAccount"),
+        centerTitle: true,
       ),
       body: ConstrainedBox(
         constraints: BoxConstraints(

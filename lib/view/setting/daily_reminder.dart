@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:smile/config/constant.dart';
 
 class DailyReminderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Constant.kPrimaryColor,
       appBar: AppBar(
-        title: Text("DailyReminder"),elevation: 0.0,centerTitle: true,
+        title: Text("DailyReminder"),
+        centerTitle: true,
       ),
       body: Column(
         children: <Widget>[

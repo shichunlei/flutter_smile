@@ -5,12 +5,16 @@ import 'package:http/http.dart' as http;
 class APIs {
   static Future<dynamic> getData(String baseUrl,
       {Map<String, String> headers}) async {
+    print(baseUrl);
+
     http.Response response = await http.get(
       baseUrl,
       headers: headers,
     );
 
     if (response.statusCode == 200) {
+      print("===========> ${response.body}");
+
       return response.body;
     } else {
       return null;
@@ -26,6 +30,8 @@ class APIs {
     );
 
     if (response.statusCode == 200) {
+      print("===========> ${response.body}");
+
       return response.body;
     } else {
       return null;

@@ -6,6 +6,7 @@ class SelectTextItem extends StatelessWidget {
     this.onTap,
     @required this.title,
     this.content: "",
+    this.contentColor: Colors.grey,
     this.textAlign: TextAlign.end,
     this.style,
     this.leading,
@@ -30,6 +31,7 @@ class SelectTextItem extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final Color bgColor;
   final TextStyle textStyle;
+  final Color contentColor;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +76,7 @@ class SelectTextItem extends StatelessWidget {
                             textAlign: textAlign,
                             overflow: TextOverflow.ellipsis,
                             style: style ??
-                                TextStyle(color: Colors.grey, fontSize: 12)))),
+                                TextStyle(color: contentColor, fontSize: 12)))),
                 Visibility(
                     visible: onTap != null,
                     child: Icon(trailing ?? Icons.chevron_right, size: 22.0))

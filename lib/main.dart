@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'splash.dart';
 
 import 'config/constant.dart';
 import 'login.dart';
@@ -33,15 +34,26 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String email = SpUtil.getString(Constant.USEREMAIL);
+
     return MaterialApp(
       title: 'Smile',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        backgroundColor: Color(0xFFF6E4E7),
-        primaryColor: Constant.kPrimaryColor,
-        accentColor: Colors.cyan[300],
-      ),
-      home: LoginPage(),
+          brightness: Brightness.light,
+          backgroundColor: Constant.kPrimaryColor,
+          primaryColor: Color(0xFF0475FB),
+          accentColor: Colors.cyan[300],
+          appBarTheme: AppBarTheme(
+            color: Constant.kPrimaryColor,
+            brightness: Brightness.light,
+            iconTheme: IconThemeData(color: Color(0xFF0475FB)),
+            textTheme: TextTheme(
+                title: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20)),
+          )),
+      home: email.isEmpty ? LoginPage() : SplashPage(email: email),
     );
   }
 }

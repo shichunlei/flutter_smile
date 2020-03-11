@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:smile/config/constant.dart';
 
 class PasscodePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Constant.kPrimaryColor,
       appBar: AppBar(
         title: Text("Passcode"),
-        elevation: 0.0,
         centerTitle: true,
       ),
       body: Column(

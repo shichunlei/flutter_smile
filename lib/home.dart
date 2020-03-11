@@ -4,7 +4,7 @@ import 'package:smile/view/line.dart';
 import 'package:smile/view/moments.dart';
 import 'package:smile/view/setting.dart';
 import 'config/constant.dart';
-import 'icon_font.dart';
+import 'global/icon_font.dart';
 import 'view/mood.dart';
 
 class HomePage extends StatefulWidget {

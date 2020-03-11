@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smile/utils/sp_util.dart';
 
 import 'package:xml/xml.dart' as xml;
 
@@ -7,7 +8,8 @@ import 'package:smile/utils/route_util.dart';
 
 import 'config/api.dart';
 import 'config/constant.dart';
-import 'dialog.dart';
+import 'global/dialog.dart';
+import 'global/toast.dart';
 import 'utils/utils.dart';
 
 class LoginPage extends StatefulWidget {
@@ -73,8 +75,8 @@ class _LoginPageState extends State<LoginPage> {
                 hintText: 'Email',
                 contentPadding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                 focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.cyan[300], width: 0.8)),
+                    borderSide: BorderSide(
+                        color: Theme.of(context).accentColor, width: 0.8)),
                 enabledBorder: UnderlineInputBorder(
                     borderSide:
                         BorderSide(color: Color(0xFF888888), width: 0.8)),
@@ -92,8 +94,8 @@ class _LoginPageState extends State<LoginPage> {
                 hintText: 'Password',
                 contentPadding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                 focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.cyan[300], width: 0.8)),
+                    borderSide: BorderSide(
+                        color: Theme.of(context).accentColor, width: 0.8)),
                 enabledBorder: UnderlineInputBorder(
                     borderSide:
                         BorderSide(color: Color(0xFF888888), width: 0.8)),
@@ -122,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                         _getLogin();
                       }
                     : null,
-                color: Colors.cyan[300],
+                color: Theme.of(context).accentColor,
                 child: Text(
                   '登 录',
                   style: TextStyle(color: Colors.white, fontSize: 20.0),
@@ -194,8 +196,15 @@ class _LoginPageState extends State<LoginPage> {
 
     if (_testValue == 'ok') {
       print("登录成功！");
-      pushAndRemovePage(context, SplashPage());
+
+      Toast.show(context, '登录成功！');
+
+      SpUtil.setString(Constant.USEREMAIL, _userController.text.toString());
+
+      pushAndRemovePage(context, SplashPage(email: username));
     } else if (_testValue == 'error') {
+      Toast.show(context, '登录失败！');
+
       print("登录失败！");
     }
   }
