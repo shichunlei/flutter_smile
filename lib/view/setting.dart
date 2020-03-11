@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:smile/config/constant.dart';
+import 'package:smile/login.dart';
 import 'package:smile/utils/route_util.dart';
+import 'package:smile/utils/sp_util.dart';
 import 'package:smile/widgets/select_text.dart';
 
 import 'setting/account.dart';
@@ -51,6 +54,32 @@ class _SettingPageState extends State<SettingPage> {
             title: 'Passcode',
             onTap: () {
               pushNewPage(context, PasscodePage());
+            },
+          ),
+          SizedBox(height: 3),
+          SelectTextItem(
+            title: 'Exit Account',
+            onTap: () {
+              showDialog(
+                builder: (context) => AlertDialog(
+                  title: Text('确认要退出账号吗？'),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text('No'),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                    FlatButton(
+                      child: Text('Yes'),
+                      onPressed: () {
+                        SpUtil.remove(Constant.USEREMAIL);
+                        Navigator.of(context).pop();
+                        pushAndRemovePage(context, LoginPage());
+                      },
+                    ),
+                  ],
+                ),
+                context: context,
+              );
             },
           ),
         ],

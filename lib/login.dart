@@ -8,7 +8,7 @@ import 'package:smile/utils/route_util.dart';
 
 import 'config/api.dart';
 import 'config/constant.dart';
-import 'global/dialog.dart';
+import 'widgets/dialog.dart';
 import 'global/toast.dart';
 import 'utils/utils.dart';
 
