@@ -4,8 +4,8 @@ import 'package:http/http.dart' as http;
 
 class APIs {
   static Future<dynamic> getData(String baseUrl,
-      {Map<String, String> headers}) async {
-    print(baseUrl);
+      {Map<String, dynamic> params, Map<String, String> headers}) async {
+    print("baseUrl ============> $baseUrl");
 
     http.Response response = await http.get(
       baseUrl,
@@ -13,7 +13,7 @@ class APIs {
     );
 
     if (response.statusCode == 200) {
-      print("===========> ${response.body}");
+      print("response.body ===========> ${response.body}");
 
       return response.body;
     } else {
@@ -23,6 +23,9 @@ class APIs {
 
   static Future<String> postData(String baseUrl,
       {dynamic body, Map<String, String> headers}) async {
+    print("baseUrl ============> $baseUrl");
+    print("body =============> ${body.toString()}");
+
     http.Response response = await http.post(
       baseUrl,
       body: body,
@@ -30,7 +33,7 @@ class APIs {
     );
 
     if (response.statusCode == 200) {
-      print("===========> ${response.body}");
+      print("response.body ===========> ${response.body}");
 
       return response.body;
     } else {
