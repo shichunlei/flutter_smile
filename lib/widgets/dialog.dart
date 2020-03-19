@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:smile/config/constant.dart';
+import 'package:smile/generated/i18n.dart';
+import 'package:smile/global/icon_font.dart';
 import 'package:smile/models/mood_type.dart';
+import 'package:smile/provider/local_provider.dart';
 import 'package:smile/utils/utils.dart';
 
 showLoadingDialog(BuildContext context, String text) async {
@@ -75,10 +81,10 @@ class MoodTypeWidget extends Dialog {
             borderRadius: BorderRadius.circular(8),
             color: Colors.white,
           ),
-          width: Utils.width * 0.6,
+          width: Utils.width * 0.8,
           child: Wrap(
             runSpacing: 5,
-            children: types.map((item) {
+            children: types(context).map((item) {
               return GestureDetector(
                 onTap: () {
                   callBack(item);
@@ -92,7 +98,7 @@ class MoodTypeWidget extends Dialog {
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    '${item.name}',
+                    '${item.showName}',
                     style: TextStyle(
                         fontSize: 15,
                         color: Colors.white,
@@ -104,4 +110,50 @@ class MoodTypeWidget extends Dialog {
           )),
     );
   }
+}
+
+/// 国际化
+void openLanguageSelectMenu(BuildContext context) async {
+  await showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) => Container(
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: SupportLocale.values.map((local) {
+                int index = SupportLocale.values.indexOf(local);
+                return ListTile(
+                    title: Text("${mapSupportLocale(context)[local]}"),
+                    onTap: () {
+                      Provider.of<LocalProvider>(context, listen: false)
+                          .setLocal(index);
+                      Navigator.pop(context);
+                    },
+                    selected: Provider.of<LocalProvider>(context).localIndex ==
+                        index);
+              }).toList())));
+}
+
+void showBottomView(
+    BuildContext context, Function(ImageSource source) callBack) async {
+  Utils.hideKeyboard(context);
+  await showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) => Container(
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
+              ListTile(
+                  leading: Icon(IconFont.camera),
+                  title: Text(S.of(context).camera),
+                  onTap: () {
+                    callBack(ImageSource.camera);
+                    Navigator.pop(context);
+                  }),
+              ListTile(
+                  leading: Icon(IconFont.gallery),
+                  title: Text(S.of(context).gallery),
+                  onTap: () {
+                    callBack(ImageSource.gallery);
+                    Navigator.pop(context);
+                  })
+            ]),
+          ));
 }

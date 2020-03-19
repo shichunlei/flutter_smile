@@ -59,6 +59,26 @@ class SpUtil {
     return _prefs.setDouble(key, value);
   }
 
+  static List<String> getStringList(String key) {
+    if (_prefs == null) return [];
+    return _prefs.getStringList(key) ?? [];
+  }
+
+  static Future<bool> setStringList(String key, List<String> value) {
+    if (_prefs == null) return null;
+    return _prefs.setStringList(key, value);
+  }
+
+  static Set<String> getKeys() {
+    if (_prefs == null) return null;
+    return _prefs.getKeys();
+  }
+
+  static dynamic getDynamic(String key) {
+    if (_prefs == null) return null;
+    return _prefs.get(key);
+  }
+
   static Future<bool> remove(String key) {
     if (_prefs == null) return null;
     return _prefs.remove(key);

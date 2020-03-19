@@ -1,11 +1,12 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class APIs {
   static Future<dynamic> getData(String baseUrl,
       {Map<String, dynamic> params, Map<String, String> headers}) async {
-    print("baseUrl ============> $baseUrl");
+    debugPrint("baseUrl ============> $baseUrl");
 
     http.Response response = await http.get(
       baseUrl,
@@ -13,7 +14,7 @@ class APIs {
     );
 
     if (response.statusCode == 200) {
-      print("response.body ===========> ${response.body}");
+      debugPrint("response.body ===========> ${response.body}");
 
       return response.body;
     } else {
@@ -23,8 +24,8 @@ class APIs {
 
   static Future<String> postData(String baseUrl,
       {dynamic body, Map<String, String> headers}) async {
-    print("baseUrl ============> $baseUrl");
-    print("body =============> ${body.toString()}");
+    debugPrint("baseUrl ============> $baseUrl");
+    debugPrint("body =============> ${body.toString()}");
 
     http.Response response = await http.post(
       baseUrl,
@@ -33,7 +34,7 @@ class APIs {
     );
 
     if (response.statusCode == 200) {
-      print("response.body ===========> ${response.body}");
+      debugPrint("response.body ===========> ${response.body}");
 
       return response.body;
     } else {

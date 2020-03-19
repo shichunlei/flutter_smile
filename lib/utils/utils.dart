@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui show window;
+
+import 'package:xml/xml.dart' as xml;
 
 import 'package:flutter/services.dart';
 
@@ -122,7 +125,7 @@ class Utils {
   /// 是否是空字符串
   ///
   static bool isEmptyString(String str) {
-    if (str == null || str.isEmpty) {
+    if (str == null || str.isEmpty || str == "null") {
       return true;
     }
     return false;
@@ -131,9 +134,64 @@ class Utils {
   /// 是否不是空字符串
   ///
   static bool isNotEmptyString(String str) {
-    if (str != null && str.isNotEmpty) {
+    if (str != null && str.isNotEmpty && str != "null") {
       return true;
     }
     return false;
+  }
+
+  /// 校验邮箱
+  ///
+  static bool isEmail(String email) {
+    if (email == null) return false;
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = RegExp(
+      pattern,
+      caseSensitive: false,
+      multiLine: false,
+    );
+    return regex.hasMatch(email);
+  }
+
+  static bool checkPassword(String password, String rePassword) {
+    if (isEmptyString(password) || isEmptyString(rePassword)) {
+      return false;
+    }
+    if (password == rePassword) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static String analysisResult(
+      var result, String responseTag, String resultTag) {
+    List<dynamic> itemsList = [];
+
+    var _document = xml.parse(result);
+    Iterable<xml.XmlElement> items = _document.findAllElements(responseTag);
+    items.map((xml.XmlElement item) {
+      var _addResult = _getValue(item.findElements(resultTag));
+      itemsList.add(_addResult);
+    }).toList();
+
+    debugPrint("itemsList=========> $itemsList");
+
+    return itemsList.first.toString();
+  }
+
+  static _getValue(Iterable<xml.XmlElement> items) {
+    var textValue;
+    items.map((xml.XmlElement node) {
+      textValue = node.text;
+    }).toList();
+    return textValue;
+  }
+
+  static Future image2Base64(String path) async {
+    File file = File(path);
+    List<int> imageBytes = await file.readAsBytes();
+    return base64Encode(imageBytes);
   }
 }

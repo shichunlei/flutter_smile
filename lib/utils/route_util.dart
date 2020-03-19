@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void pushNewPage(BuildContext context, Widget routePage,
-    {Function callBack, fullscreenDialog: false}) {
+    {Function(String value) callBack, fullscreenDialog: false}) {
   Navigator.push(
           context,
           MaterialPageRoute(
