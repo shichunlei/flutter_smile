@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class InputView extends StatefulWidget {
   final TextEditingController controller;
@@ -44,9 +45,10 @@ class _InputViewState extends State<InputView> {
 
     //监听输入改变
     widget.controller.addListener(() {
-      setState(() {
-        _isShowDelete = widget.controller.text.isEmpty;
-      });
+      if (mounted)
+        setState(() {
+          _isShowDelete = widget.controller.text.isEmpty;
+        });
     });
   }
 
@@ -73,6 +75,12 @@ class _InputViewState extends State<InputView> {
               controller: widget.controller,
               textInputAction: TextInputAction.done,
               keyboardType: widget.keyboardType,
+              inputFormatters: (widget.keyboardType == TextInputType.number ||
+                      widget.keyboardType == TextInputType.phone)
+                  ? [WhitelistingTextInputFormatter(RegExp("[0-9]"))]
+                  : widget.keyboardType == TextInputType.emailAddress
+                      ? [BlacklistingTextInputFormatter(RegExp("[^\x00-\xff]"))]
+                      : [BlacklistingTextInputFormatter(RegExp(""))],
               decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(vertical: 16.0),
                   hintText: widget.hintText,
