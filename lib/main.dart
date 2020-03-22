@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:smile/utils/utils.dart';
 
 import 'provider/gratitude_provider.dart';
 import 'view/account/login.dart';
@@ -50,11 +51,11 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   bool isLogin;
-  List<String> passCode;
+  String passCode;
 
   MyApp({Key key}) : super(key: key) {
     isLogin = SpUtil.getBool(Constant.IS_LOGIN, defValue: false);
-    passCode = SpUtil.getStringList(Constant.PASS_CODE);
+    passCode = SpUtil.getString(Constant.PASS_CODE, defValue: '');
   }
 
   @override
@@ -78,7 +79,9 @@ class MyApp extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           fontSize: 20)))),
           home: isLogin
-              ? (passCode.length > 0 ? VerifyPassCodePage() : SplashPage())
+              ? (Utils.isNotEmptyString(passCode)
+                  ? VerifyPassCodePage()
+                  : SplashPage())
               : LoginPage(),
           localizationsDelegates: [
             GlobalMaterialLocalizations.delegate,

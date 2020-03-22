@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:gesture_recognition/gesture_view.dart';
 import 'package:smile/config/constant.dart';
 import 'package:smile/generated/i18n.dart';
 import 'package:smile/utils/sp_util.dart';
 import 'package:smile/utils/utils.dart';
+import 'package:smile/widgets/gesture_recognition/gesture_view.dart';
 import 'package:smile/widgets/select_text.dart';
 
 class PassCodePage extends StatefulWidget {
@@ -16,10 +16,10 @@ class PassCodePage extends StatefulWidget {
 }
 
 class _PassCodePageState extends State<PassCodePage> {
-  List<String> firstResult = [];
-  List<String> verifyResult = [];
+  String firstResult = '';
+  String verifyResult = '';
 
-  List<String> passCode = [];
+  String passCode = '';
 
   String statusText = "";
 
@@ -33,11 +33,11 @@ class _PassCodePageState extends State<PassCodePage> {
   void initState() {
     super.initState();
 
-    passCode = SpUtil.getStringList(Constant.PASS_CODE);
+    passCode = SpUtil.getString(Constant.PASS_CODE);
 
     Future.microtask(() => statusText = S.of(context).drawPattern);
 
-    print(passCode);
+    debugPrint("passCode => $passCode");
   }
 
   @override
@@ -49,8 +49,8 @@ class _PassCodePageState extends State<PassCodePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Constant.kPrimaryColor,
-        appBar: AppBar(
-            title: Text(S.of(context).titlePasscode), centerTitle: true),
+        appBar:
+            AppBar(title: Text(S.of(context).titlePasscode), centerTitle: true),
         body: passCode.length > 0
             ? Container(
                 margin: EdgeInsets.all(20),
@@ -79,7 +79,7 @@ class _PassCodePageState extends State<PassCodePage> {
                   SizedBox(height: 3),
                   SelectTextItem(
                       title: S.of(context).changeScreenLock,
-                      onTap: () => setState(() => passCode.clear()))
+                      onTap: () => setState(() => passCode = ""))
                 ]))
             : Container(
                 width: double.infinity,
@@ -94,7 +94,6 @@ class _PassCodePageState extends State<PassCodePage> {
                     margin: EdgeInsets.symmetric(vertical: 40),
                     child: GestureView(
                         key: gestureStateKey,
-                        immediatelyClear: immediatelyClear,
                         size: Utils.width * 0.7,
                         onPanUp: (List<int> items) {
                           onPanUp(items);
@@ -102,7 +101,6 @@ class _PassCodePageState extends State<PassCodePage> {
                         onPanDown: () {
                           gestureStateKey.currentState.selectColor =
                               Colors.blue;
-                          immediatelyClear = false;
                           setState(() {
                             statusText = S.of(context).drawing;
                           });
@@ -119,9 +117,10 @@ class _PassCodePageState extends State<PassCodePage> {
                             width: 120.0,
                             child: RaisedButton(
                                 onPressed: () {
-                                  firstResult.clear();
-                                  verifyResult.clear();
+                                  firstResult = '';
+                                  verifyResult = '';
                                   showBottomView = false;
+                                  gestureStateKey.currentState.clearAllData();
                                   setState(() {
                                     statusText = S.of(context).drawPattern;
                                   });
@@ -131,9 +130,10 @@ class _PassCodePageState extends State<PassCodePage> {
                         Container(
                             width: 120.0,
                             child: RaisedButton(
-                                onPressed: verifyResult.length > 0
+                                onPressed: verifyResult.length > 0 &&
+                                        verifyResult == firstResult
                                     ? () {
-                                        SpUtil.setStringList(
+                                        SpUtil.setString(
                                             Constant.PASS_CODE, verifyResult);
 
                                         Navigator.pop(context);
@@ -156,32 +156,33 @@ class _PassCodePageState extends State<PassCodePage> {
 
       if (firstResult.length > 0) {
         items.forEach((item) {
-          verifyResult.add("$item");
+          verifyResult += "$item";
         });
 
-        if (verifyResult.length == firstResult.length) {
-          for (int i = 0; i < items.length; i++) {
-            if (verifyResult[i] != firstResult[i]) break;
-          }
+        debugPrint("第二次画的结果：${verifyResult.toString()}");
+
+        if (verifyResult == firstResult) {
           gestureStateKey.currentState.selectColor = Colors.blue;
           setState(() {
             statusText = S.of(context).newPattern;
           });
         } else {
           gestureStateKey.currentState.selectColor = Colors.red;
-          verifyResult.clear();
+          verifyResult = '';
           statusText = S.of(context).tryAgain;
         }
 
         setState(() {});
       } else {
         items.forEach((item) {
-          firstResult.add("$item");
+          firstResult += "$item";
         });
+        debugPrint("第一次画的结果：${firstResult.toString()}");
         setState(() {
           statusText = S.of(context).patternRecorded;
         });
         Timer(Duration(milliseconds: 500), () {
+          gestureStateKey.currentState.clearAllData();
           setState(() {
             statusText = S.of(context).drawAgain;
           });
