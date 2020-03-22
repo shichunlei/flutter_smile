@@ -87,7 +87,10 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: () => pushNewPage(context, ForgetPasswordPage()),
                     child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(S.of(context).forget))),
+                        child: Text(
+                          S.of(context).forget,
+                          style: TextStyle(color: Colors.blue),
+                        ))),
                 alignment: Alignment.centerRight),
             Hero(
                 tag: "button",
@@ -117,16 +120,11 @@ class _LoginPageState extends State<LoginPage> {
                         text: TextSpan(children: [
                       TextSpan(
                           text: S.of(context).notAccount,
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400)),
+                          style: TextStyle(color: Colors.grey)),
                       TextSpan(
                           text: S.of(context).register,
                           style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold),
+                              color: Colors.blue, fontWeight: FontWeight.bold),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () => pushNewPage(context, RegisterPage(),
                                     callBack: (value) {

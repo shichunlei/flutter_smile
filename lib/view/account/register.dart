@@ -130,16 +130,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         text: TextSpan(children: [
                       TextSpan(
                           text: S.of(context).haveAccount,
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400)),
+                          style: TextStyle(color: Colors.grey)),
                       TextSpan(
                           text: S.of(context).login,
                           style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold),
+                              color: Colors.blue, fontWeight: FontWeight.bold),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () => Navigator.pop(context))
                     ]))))
