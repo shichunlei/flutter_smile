@@ -129,6 +129,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         debugPrint("修改成功！");
 
         Toast.show(context, S.of(context).updateSuccess);
+        Utils.hideKeyboard(context);
+        Navigator.pop(context);
       } else {
         Toast.show(context, '$_testValue');
 

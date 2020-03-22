@@ -161,7 +161,7 @@ class _AddPhoneNumberPageState extends State<AddPhoneNumberPage> {
 
     if (result == 'ok') {
       Toast.show(context, S.of(context).success);
-
+      Utils.hideKeyboard(context);
       Navigator.pop(context, mobile);
     } else {
       Toast.show(context, S.of(context).failed);

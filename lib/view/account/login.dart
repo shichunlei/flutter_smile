@@ -41,8 +41,8 @@ class _LoginPageState extends State<LoginPage> {
       setState(() {});
     });
 
-    _userController.text = "info@yok.com.cn";
-    _pwController.text = '980219';
+//    _userController.text = "info@yok.com.cn";
+//    _pwController.text = '980219';
   }
 
   @override

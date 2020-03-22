@@ -81,6 +81,7 @@ class _AccountPageState extends State<AccountPage> {
                                 FlatButton(
                                     child: Text(S.of(context).sure),
                                     onPressed: () {
+                                      Navigator.pop(context);
                                       showLoadingDialog(
                                           context, S.of(context).sending);
                                       removePhone();
