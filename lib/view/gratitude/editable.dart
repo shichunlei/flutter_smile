@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -143,13 +146,24 @@ class _EditablePageState extends State<EditablePage> {
   }
 
   Future pickerImage(ImageSource source) async {
-    var image = await ImagePicker.pickImage(source: source);
+    var image = await ImagePicker.pickImage(
+        source: source, maxWidth: 600, maxHeight: 800, imageQuality: 80);
 
     if (image != null) {
       showLoadingDialog(context, S.of(context).saving);
-      String path = image.path;
 
-      debugPrint(image.path);
+      ImageProperties properties =
+          await FlutterNativeImage.getImageProperties(image.path);
+
+      debugPrint(
+          "width=> ${properties.width}\nheight=> ${properties.height}\norientation=> ${properties.orientation}");
+
+      File compressedFile =
+          await FlutterNativeImage.compressImage(image.path, quality: 50);
+
+      String path = compressedFile.path;
+
+      debugPrint(path);
 
       // 原图片名称
       String filename = path.substring(path.lastIndexOf("/") + 1, path.length);
