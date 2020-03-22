@@ -65,12 +65,10 @@ class _MomentsPageState extends State<MomentsPage>
                 emptyWidget: status == PageStatus.NoData ? EmptyView() : null,
                 header: MaterialHeader(),
                 footer: BallPulseFooter(),
-                onRefresh: status == PageStatus.NoData
-                    ? null
-                    : () async {
-                        pageNo = 1;
-                        getGratitudeQuery(RefreshType.REFRESH);
-                      },
+                onRefresh: () async {
+                  pageNo = 1;
+                  getGratitudeQuery(RefreshType.REFRESH);
+                },
                 onLoad: notMoreData || status == PageStatus.NoData
                     ? null
                     : () async {
@@ -162,11 +160,16 @@ class _MomentsPageState extends State<MomentsPage>
 
       if (_json["success"] == 'ok') {
         if (DateUtils.isToday(moments[index].gratitudeTime)) {
-          Provider.of<GratitudeProvider>(context).getGratitudeData();
+          Provider.of<GratitudeProvider>(context, listen: false)
+              .getGratitudeData();
         }
 
         Toast.show(context, S.of(context).deleteSuccess);
         moments.removeAt(index);
+
+        if (moments.length == 0) {
+          status = PageStatus.NoData;
+        }
 
         if (!mounted) return;
         setState(() {});

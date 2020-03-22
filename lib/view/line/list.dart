@@ -58,12 +58,10 @@ class _MoodListPageState extends State<MoodListPage>
             emptyWidget: status == PageStatus.NoData ? EmptyView() : null,
             header: MaterialHeader(),
             footer: BallPulseFooter(),
-            onRefresh: status == PageStatus.NoData
-                ? null
-                : () async {
-                    pageNo = 1;
-                    getMoodsData(RefreshType.REFRESH);
-                  },
+            onRefresh: () async {
+              pageNo = 1;
+              getMoodsData(RefreshType.REFRESH);
+            },
             onLoad: notMoreData || status == PageStatus.NoData
                 ? null
                 : () async {
@@ -164,6 +162,10 @@ class _MoodListPageState extends State<MoodListPage>
         debugPrint("Success");
 
         moods.removeAt(index);
+
+        if (moods.length == 0) {
+          status = PageStatus.NoData;
+        }
 
         if (!mounted) return;
         setState(() {});

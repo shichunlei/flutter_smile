@@ -94,6 +94,7 @@ class _EditablePageState extends State<EditablePage> {
                             index: index,
                             deletePressed: () {
                               setState(() {
+                                imagesName.removeAt(index);
                                 images.removeAt(index);
                               });
                             },

@@ -16,21 +16,23 @@ class UneditablePage extends StatelessWidget {
             padding: EdgeInsets.all(10),
             child: Column(children: [
               Container(
-                child: Text('${gratitude?.gratitudeNotes}'),
-                constraints: BoxConstraints(minHeight: 50.0),
+                  child: Text('${gratitude?.gratitudeNotes}'),
+                  constraints: BoxConstraints(minHeight: 50.0)),
+              Visibility(
+                visible: gratitude.images.length > 0,
+                child: GridView.builder(
+                    padding: EdgeInsets.only(top: 10),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        childAspectRatio: 1.0,
+                        crossAxisSpacing: 3.0,
+                        mainAxisSpacing: 3.0),
+                    itemBuilder: (_, index) =>
+                        ItemImage(images: gratitude.images, index: index),
+                    itemCount: gratitude.images.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true),
               ),
-              SizedBox(height: 10),
-              GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1.0,
-                      crossAxisSpacing: 3.0,
-                      mainAxisSpacing: 3.0),
-                  itemBuilder: (_, index) =>
-                      ItemImage(images: gratitude.images, index: index),
-                  itemCount: gratitude.images.length,
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true),
               SizedBox(height: 10),
               Text('${gratitude?.time}')
             ], crossAxisAlignment: CrossAxisAlignment.start)));
