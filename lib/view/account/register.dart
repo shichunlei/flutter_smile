@@ -17,8 +17,6 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  List<dynamic> itemsList = List();
-
   TextEditingController _emailController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _pwController = TextEditingController();
@@ -48,6 +46,11 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void dispose() {
+    _repwController?.dispose();
+    _pwController?.dispose();
+    _nameController?.dispose();
+    _emailController?.dispose();
+
     super.dispose();
   }
 

@@ -55,6 +55,8 @@ class _AddPhoneNumberPageState extends State<AddPhoneNumberPage> {
   void dispose() {
     _streamController?.close();
     _timer?.cancel();
+    _phoneController?.dispose();
+    _codeController?.dispose();
     super.dispose();
   }
 

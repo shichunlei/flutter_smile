@@ -23,8 +23,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  List<dynamic> itemsList = List();
-
   TextEditingController _userController = TextEditingController();
   TextEditingController _pwController = TextEditingController();
 
@@ -40,13 +38,12 @@ class _LoginPageState extends State<LoginPage> {
     _pwController.addListener(() {
       setState(() {});
     });
-
-//    _userController.text = "info@yok.com.cn";
-//    _pwController.text = '980219';
   }
 
   @override
   void dispose() {
+    _userController?.dispose();
+    _pwController?.dispose();
     super.dispose();
   }
 

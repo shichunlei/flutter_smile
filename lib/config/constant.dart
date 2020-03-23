@@ -17,11 +17,6 @@ class Constant {
   /// 存储语言
   static const String LANGUAGE = "_LANGUAGE_";
 
-  ///Tab文本字体大小
-  static const double MAIN_IMAGE_SIZE = 150;
-
-  static const double kTabTextSize = 11.0;
-
   static const String IMAGE_BASE_URL = "http://www.yoksoft.com/";
 
   static const String IMAGE_PATH = "/SimleImg/";

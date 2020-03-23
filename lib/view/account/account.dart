@@ -19,10 +19,7 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  List<dynamic> itemsList = List();
-
   String email;
-
   String mobile;
 
   User user;
@@ -46,66 +43,57 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Constant.kPrimaryColor,
-      appBar:
-          AppBar(title: Text(S.of(context).titleAccount), centerTitle: true),
-      body: Container(
-        padding: EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            SizedBox(height: 10),
-            SelectTextItem(
-              title: S.of(context).userEmail,
-              content: user?.userName ?? "",
-            ),
-            SizedBox(height: 10),
-            SelectTextItem(
-              title: S.of(context).userName,
-              content: user?.name ?? "",
-            ),
-            SizedBox(height: 10),
-            SelectTextItem(
-              title: S.of(context).userMobile,
-              content: mobile ?? "",
-              onTap: () {
-                if (hasMobile) {
-                  debugPrint("有手机号码");
-                  showDialog(
-                      builder: (context) => AlertDialog(
-                              title: Text(S.of(context).deletePhoneNumber),
-                              actions: <Widget>[
-                                FlatButton(
-                                  child: Text(S.of(context).cancel),
-                                  onPressed: () => Navigator.pop(context),
-                                ),
-                                FlatButton(
-                                    child: Text(S.of(context).sure),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      showLoadingDialog(
-                                          context, S.of(context).sending);
-                                      removePhone();
-                                    })
-                              ]),
-                      context: context);
-                } else {
-                  debugPrint("没有手机号码");
-                  pushNewPage(context, AddPhoneNumberPage(),
-                      callBack: (String value) {
-                    if (Utils.isNotEmptyString(value)) {
-                      setState(() {
-                        hasMobile = true;
-                        mobile = value;
+        backgroundColor: Constant.kPrimaryColor,
+        appBar:
+            AppBar(title: Text(S.of(context).titleAccount), centerTitle: true),
+        body: Container(
+            padding: EdgeInsets.all(10.0),
+            child: Column(children: [
+              SizedBox(height: 10),
+              SelectTextItem(
+                  title: S.of(context).userEmail,
+                  content: user?.userName ?? ""),
+              SizedBox(height: 10),
+              SelectTextItem(
+                  title: S.of(context).userName, content: user?.name ?? ""),
+              SizedBox(height: 10),
+              SelectTextItem(
+                  title: S.of(context).userMobile,
+                  content: mobile ?? "",
+                  onTap: () {
+                    if (hasMobile) {
+                      debugPrint("有手机号码");
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                  title: Text(S.of(context).deletePhoneNumber),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                        child: Text(S.of(context).cancel),
+                                        onPressed: () =>
+                                            Navigator.pop(context)),
+                                    FlatButton(
+                                        child: Text(S.of(context).sure),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          showLoadingDialog(
+                                              context, S.of(context).sending);
+                                          removePhone();
+                                        })
+                                  ]));
+                    } else {
+                      debugPrint("没有手机号码");
+                      pushNewPage(context, AddPhoneNumberPage(),
+                          callBack: (String value) {
+                        if (Utils.isNotEmptyString(value))
+                          setState(() {
+                            hasMobile = true;
+                            mobile = value;
+                          });
                       });
                     }
-                  });
-                }
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+                  })
+            ])));
   }
 
   Future getUserInfo() async {
