@@ -59,6 +59,7 @@
   "enterEmail": "Enter your email",
   "enterName": "Enter your name",
   "forgetTip": "Note: After you click Send, the system will send an email to $email, you can click the message in connection to retrieve your password.",
+  "forgetSuccessTip": "The system sends a message to $email, please proceed to modify the mailbox password.",
   "userEmail": "UserName",
   "userName": "Name",
   "userMobile": "PhoneNumber",
@@ -106,5 +107,7 @@
   "third": "Third",
   "camera": "Camera",
   "gallery": "Gallery",
-  "delete": "Dle"
+  "delete": "Dle",
+  "backToLogin": "Back to Login",
+  "emailSendSuccess": "Email sent successfully!"
 }

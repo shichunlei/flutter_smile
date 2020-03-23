@@ -27,6 +27,7 @@ class S implements WidgetsLocalizations {
   String get addMoodStory => "Add your mood story here!";
   String get anger => "Anger";
   String get anxiety => "Anxiety";
+  String get backToLogin => "Back to Login";
   String get camera => "Camera";
   String get cancel => "Cancel";
   String get changeScreenLock => "Change Screen Lock";
@@ -47,6 +48,7 @@ class S implements WidgetsLocalizations {
   String get drawAgain => "Draw pattern again to confirm:";
   String get drawPattern => "Draw an unlock pattern:";
   String get drawing => "Release finger when done";
+  String get emailSendSuccess => "Email sent successfully!";
   String get enterCode => "Enter verify code";
   String get enterEmail => "Enter your email";
   String get enterName => "Enter your name";
@@ -128,6 +130,7 @@ class S implements WidgetsLocalizations {
   String get userName => "Name";
   String get week => "Week";
   String get yes => "Yes";
+  String forgetSuccessTip(String email) => "The system sends a message to $email, please proceed to modify the mailbox password.";
   String forgetTip(String email) => "Note: After you click Send, the system will send an email to $email, you can click the message in connection to retrieve your password.";
 }
 
@@ -145,6 +148,8 @@ class $zh_CN extends S {
   String get cancel => "取消";
   @override
   String get pressAgain => "再按一次退出账号";
+  @override
+  String get emailSendSuccess => "邮件发送成功！";
   @override
   String get changeScreenLock => "修改密码";
   @override
@@ -264,6 +269,8 @@ class $zh_CN extends S {
   @override
   String get language => "切换语言";
   @override
+  String get backToLogin => "返回登录";
+  @override
   String get anger => "愤怒";
   @override
   String get haveAccount => "您已经有账号了？ 去";
@@ -357,6 +364,8 @@ class $zh_CN extends S {
   String get deleteRecord => "您确定要删除该条记录？";
   @override
   String forgetTip(String email) => "注：点击发送后，系统会发送一封邮件至$email，您可以点击邮件里的连接来找回密码。";
+  @override
+  String forgetSuccessTip(String email) => "系统已发送一封邮件至$email，请前往邮箱修改密码。";
 }
 
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {

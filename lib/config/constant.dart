@@ -17,6 +17,12 @@ class Constant {
   /// 存储语言
   static const String LANGUAGE = "_LANGUAGE_";
 
+  static const String SEND_EMAIL = '_SEND_EMAIL_';
+
+  static const String TIME_INTERVAL = '_TIME_INTERVAL_';
+
+  static const int INT_TIME_INTERVAL = 30 * 60 * 1000;
+
   static const String IMAGE_BASE_URL = "http://www.yoksoft.com/";
 
   static const String IMAGE_PATH = "/SimleImg/";

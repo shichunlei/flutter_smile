@@ -59,6 +59,7 @@
   "enterEmail": "请输入邮箱",
   "enterName": "请输入用户名",
   "forgetTip": "注：点击发送后，系统会发送一封邮件至$email，您可以点击邮件里的连接来找回密码。",
+  "forgetSuccessTip": "系统已发送一封邮件至$email，请前往邮箱修改密码。",
   "userEmail": "邮箱",
   "userName": "昵称",
   "userMobile": "手机号码",
@@ -106,5 +107,7 @@
   "third": "第三条",
   "camera": "相机",
   "gallery": "相册",
-  "delete": "删除"
+  "delete": "删除",
+  "backToLogin": "返回登录",
+  "emailSendSuccess": "邮件发送成功！"
 }

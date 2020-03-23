@@ -80,7 +80,13 @@ class _LoginPageState extends State<LoginPage> {
             Container(
                 margin: EdgeInsets.only(top: 10, bottom: 30),
                 child: InkWell(
-                    onTap: () => pushNewPage(context, ForgetPasswordPage()),
+                    onTap: () => pushNewPage(context, ForgetPasswordPage(),
+                            callBack: (value) {
+                          if (Utils.isNotEmptyString(value)) {
+                            _userController.text = value;
+                            _pwController.text = "";
+                          }
+                        }),
                     child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
