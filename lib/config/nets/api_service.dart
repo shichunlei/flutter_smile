@@ -126,7 +126,7 @@ class ApiService {
     if (_response != null) {
       debugPrint("===========> $_response");
 
-      String result =
+      result =
           Utils.analysisResult(_response, "ForgotResponse", "ForgotResult");
 
       debugPrint("itemsList: $result");

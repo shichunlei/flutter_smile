@@ -76,12 +76,12 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
     String result =
         await ApiService().forgetPassword(_userController.text.toString());
 
-    Navigator.pop(context);
-
     if (result == 'ok') {
       Toast.show(context, S.of(context).sendSuccess);
     } else {
       Toast.show(context, S.of(context).sendFailed);
     }
+
+    Navigator.pop(context);
   }
 }
