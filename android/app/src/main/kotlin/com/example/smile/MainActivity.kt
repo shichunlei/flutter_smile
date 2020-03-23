@@ -1,4 +1,4 @@
-package com.example.smile
+package com.liuyiting.smile
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
