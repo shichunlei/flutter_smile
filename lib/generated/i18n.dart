@@ -198,13 +198,13 @@ class $zh_CN extends S {
   @override
   String get titleSetting => "设置";
   @override
-  String get exitEdit => "你编辑的情绪日记没有提交，确认要退出吗？";
+  String get exitEdit => "您编辑的情绪日记没有提交，确认要退出吗？";
   @override
   String get titleForget => "忘记密码";
   @override
   String get logining => "正在登陆...";
   @override
-  String get tabGratitude => "感激";
+  String get tabGratitude => "感恩";
   @override
   String get tabLine => "曲线";
   @override
@@ -238,7 +238,7 @@ class $zh_CN extends S {
   @override
   String get ENGLISH => "英文";
   @override
-  String get tipGratitude => "你感觉如何感激？记录下那些让你微笑的瞬间吧！";
+  String get tipGratitude => "您感觉如何感激？记录下那些让你微笑的瞬间吧！";
   @override
   String get positive => "积极";
   @override
@@ -266,13 +266,13 @@ class $zh_CN extends S {
   @override
   String get anger => "愤怒";
   @override
-  String get haveAccount => "你已经有账号了？ 去";
+  String get haveAccount => "您已经有账号了？ 去";
   @override
   String get second => "第二条";
   @override
   String get post => "发布";
   @override
-  String get notAccount => "你还没有账号？ 去";
+  String get notAccount => "您还没有账号？ 去";
   @override
   String get newPattern => "您的新解锁图案";
   @override
@@ -336,7 +336,7 @@ class $zh_CN extends S {
   @override
   String get registerSuccess => "注册成功!";
   @override
-  String get exitAccount => "你确定要退出该账号吗？";
+  String get exitAccount => "您确定要退出该账号吗？";
   @override
   String get yes => "是";
   @override

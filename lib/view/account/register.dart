@@ -54,8 +54,8 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Constant.kPrimaryColor,
-        body: SingleChildScrollView(
+      backgroundColor: Constant.kPrimaryColor,
+      body: SingleChildScrollView(
           padding: EdgeInsets.only(left: 40, right: 40, top: 100),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Hero(
@@ -99,47 +99,46 @@ class _RegisterPageState extends State<RegisterPage> {
                 hintText: S.of(context).confirmPassword,
                 obscure: true),
             Hero(
-              tag: "button",
-              child: Container(
-                  margin: EdgeInsets.only(top: 20, bottom: 10),
-                  height: 45,
-                  width: double.infinity,
-                  child: RaisedButton(
-                      onPressed:
-                          Utils.isEmail(_emailController.text.toString()) &&
-                                  _nameController.text.isNotEmpty &&
-                                  Utils.checkPassword(
-                                      _pwController.text, _repwController.text)
-                              ? () {
-                                  showLoadingDialog(
-                                      context, S.of(context).registering);
-                                  Utils.hideKeyboard(context);
-                                  _signUp();
-                                }
-                              : null,
-                      color: Theme.of(context).accentColor,
-                      child: Text(S.of(context).register,
-                          style:
-                              TextStyle(color: Colors.white, fontSize: 20.0)))),
-            ),
+                tag: "button",
+                child: Container(
+                    margin: EdgeInsets.only(top: 20, bottom: 10),
+                    height: 45,
+                    width: double.infinity,
+                    child: RaisedButton(
+                        onPressed:
+                            Utils.isEmail(_emailController.text.toString()) &&
+                                    _nameController.text.isNotEmpty &&
+                                    Utils.checkPassword(_pwController.text,
+                                        _repwController.text)
+                                ? () {
+                                    showLoadingDialog(
+                                        context, S.of(context).registering);
+                                    Utils.hideKeyboard(context);
+                                    _signUp();
+                                  }
+                                : null,
+                        color: Theme.of(context).accentColor,
+                        child: Text(S.of(context).register,
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 20.0))))),
             Hero(
                 tag: "account",
                 child: Container(
                     margin: EdgeInsets.only(top: 20),
                     child: RichText(
-                        text: TextSpan(children: [
+                        text:
+                            TextSpan(style: TextStyle(fontSize: 15), children: [
                       TextSpan(
                           text: S.of(context).haveAccount,
                           style: TextStyle(color: Colors.grey)),
                       TextSpan(
                           text: S.of(context).login,
-                          style: TextStyle(
-                              color: Colors.blue, fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Colors.blue),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () => Navigator.pop(context))
                     ]))))
-          ]),
-        ));
+          ])),
+    );
   }
 
   Future _signUp() async {

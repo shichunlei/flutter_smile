@@ -53,8 +53,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Constant.kPrimaryColor,
-        body: SingleChildScrollView(
+      backgroundColor: Constant.kPrimaryColor,
+      body: SingleChildScrollView(
           padding: EdgeInsets.only(left: 40, right: 40, top: 100),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Hero(
@@ -63,14 +63,13 @@ class _LoginPageState extends State<LoginPage> {
                 tag: "logoImage"),
             SizedBox(height: 30),
             Hero(
-              tag: "emailEdit",
-              child: InputView(
-                  controller: _userController,
-                  nextFocusNode: _pwFocusNode,
-                  keyboardType: TextInputType.emailAddress,
-                  prefixIcon: Icon(Icons.email),
-                  hintText: S.of(context).enterEmail),
-            ),
+                tag: "emailEdit",
+                child: InputView(
+                    controller: _userController,
+                    nextFocusNode: _pwFocusNode,
+                    keyboardType: TextInputType.emailAddress,
+                    prefixIcon: Icon(Icons.email),
+                    hintText: S.of(context).enterEmail)),
             SizedBox(height: 10),
             Hero(
                 tag: "passwordEdit",
@@ -117,14 +116,14 @@ class _LoginPageState extends State<LoginPage> {
                 child: Container(
                     margin: EdgeInsets.only(top: 20),
                     child: RichText(
-                        text: TextSpan(children: [
+                        text:
+                            TextSpan(style: TextStyle(fontSize: 15), children: [
                       TextSpan(
                           text: S.of(context).notAccount,
                           style: TextStyle(color: Colors.grey)),
                       TextSpan(
                           text: S.of(context).register,
-                          style: TextStyle(
-                              color: Colors.blue, fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Colors.blue),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () => pushNewPage(context, RegisterPage(),
                                     callBack: (value) {
@@ -134,8 +133,8 @@ class _LoginPageState extends State<LoginPage> {
                                   }
                                 }))
                     ]))))
-          ]),
-        ));
+          ])),
+    );
   }
 
   Future _login() async {
