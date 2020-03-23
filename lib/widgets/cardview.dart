@@ -34,13 +34,15 @@ class CardView extends StatelessWidget {
                     width: Utils.width * 0.35,
                     alignment: Alignment.center,
                     child: Column(children: [
-                      Icon(icon, color: Color(0xFFF0B2B5), size: 60.0),
+                      Icon(icon,
+                          color: Color(0xFFF0B2B5), size: Utils.width * 0.15),
                       SizedBox(height: 10),
                       Text('$title',
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: 17.5))
+                              fontSize: 14.5))
                     ], mainAxisSize: MainAxisSize.min)))));
   }
 }
