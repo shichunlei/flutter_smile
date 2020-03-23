@@ -37,34 +37,39 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
         backgroundColor: Constant.kPrimaryColor,
         appBar:
             AppBar(title: Text(S.of(context).titleForget), centerTitle: true),
-        body: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
-            child: Column(children: [
-              InputView(
-                  controller: _userController,
-                  keyboardType: TextInputType.emailAddress,
-                  prefixIcon: Icon(Icons.email),
-                  hintText: S.of(context).enterEmail),
-              Container(
-                  margin: EdgeInsets.only(top: 20, bottom: 20),
-                  height: 45,
-                  width: double.infinity,
-                  child: RaisedButton(
-                      onPressed: Utils.isEmail(_userController.text.toString())
-                          ? () {
-                              showLoadingDialog(context, S.of(context).sending);
-                              Utils.hideKeyboard(context);
-                              forgetPassword();
-                            }
-                          : null,
-                      color: Theme.of(context).accentColor,
-                      child: Text(S.of(context).send,
-                          style:
-                              TextStyle(color: Colors.white, fontSize: 20.0)))),
-              Container(
-                  child: Text(
-                      S.of(context).forgetTip(_userController.text.toString())))
-            ])));
+        body: SingleChildScrollView(
+          child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
+              child: Column(children: [
+                InputView(
+                    controller: _userController,
+                    keyboardType: TextInputType.emailAddress,
+                    prefixIcon: Icon(Icons.email),
+                    hintText: S.of(context).enterEmail),
+                Container(
+                    margin: EdgeInsets.only(top: 20, bottom: 20),
+                    height: 45,
+                    width: double.infinity,
+                    child: RaisedButton(
+                        onPressed:
+                            Utils.isEmail(_userController.text.toString())
+                                ? () {
+                                    showLoadingDialog(
+                                        context, S.of(context).sending);
+                                    Utils.hideKeyboard(context);
+                                    forgetPassword();
+                                  }
+                                : null,
+                        color: Theme.of(context).accentColor,
+                        child: Text(S.of(context).send,
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 20.0)))),
+                Container(
+                    child: Text(S
+                        .of(context)
+                        .forgetTip(_userController.text.toString())))
+              ])),
+        ));
   }
 
   void forgetPassword() async {

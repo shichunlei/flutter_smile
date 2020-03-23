@@ -83,7 +83,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                                       HomePage(index: Constant.INDEX_SETTING));
                                 }),
                             alignment: Alignment.topRight),
-                        SizedBox(height: 100 + Utils.width * 0.4),
+                        SizedBox(height: 100 + Utils.width * 0.35),
                         Row(children: <Widget>[
                           CardView(
                               title: S.of(context).titleMood,
@@ -109,14 +109,14 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                   child: Hero(
                       tag: "logoImage",
                       child: Image.asset("assets/smile_logo.png",
-                          width: Utils.width * 0.4, height: Utils.width * 0.4)),
+                          width: Utils.width * 0.35, height: Utils.width * 0.35)),
                   left: 0,
                   right: 0,
                   top: _animation.value),
               Positioned(
                   left: 0,
                   right: 0,
-                  top: Utils.topSafeHeight + 50 + Utils.width * 0.4 + 18,
+                  top: Utils.topSafeHeight + 50 + Utils.width * 0.35 + 18,
                   child: ScaleTransition(
                       child: Center(
                           child: Container(

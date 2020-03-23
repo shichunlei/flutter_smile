@@ -30,8 +30,8 @@ class CardView extends StatelessWidget {
             child: InkWell(
                 onTap: () => pushNewPage(context, HomePage(index: index)),
                 child: Container(
-                    height: Utils.width * 0.4,
-                    width: Utils.width * 0.4,
+                    height: Utils.width * 0.35,
+                    width: Utils.width * 0.35,
                     alignment: Alignment.center,
                     child: Column(children: [
                       Icon(icon, color: Color(0xFFF0B2B5), size: 60.0),

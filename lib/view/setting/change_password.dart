@@ -50,43 +50,46 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         backgroundColor: Constant.kPrimaryColor,
         appBar: AppBar(
             title: Text(S.of(context).titleChangePassword), centerTitle: true),
-        body: Container(
-          padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-          child: Column(
-            children: [
-              InputView(
-                  keyboardType: TextInputType.visiblePassword,
-                  controller: _oldController,
-                  nextFocusNode: _focusNode,
-                  prefixIcon: Icon(Icons.lock),
-                  hintText: S.of(context).enterOldPassword,
-                  obscure: true),
-              SizedBox(height: 10),
-              InputView(
-                  keyboardType: TextInputType.visiblePassword,
-                  controller: _newController,
-                  focusNode: _focusNode,
-                  prefixIcon: Icon(Icons.lock),
-                  hintText: S.of(context).enterNewPassword,
-                  obscure: true),
-              Container(
-                  margin: EdgeInsets.only(top: 20),
-                  height: 45,
-                  width: double.infinity,
-                  child: RaisedButton(
-                      onPressed: _oldController.text.isNotEmpty &&
-                              _newController.text.isNotEmpty
-                          ? () {
-                              showLoadingDialog(context, S.of(context).loading);
-                              Utils.hideKeyboard(context);
-                              _changePassword();
-                            }
-                          : null,
-                      color: Theme.of(context).accentColor,
-                      child: Text(S.of(context).submit,
-                          style:
-                              TextStyle(color: Colors.white, fontSize: 20.0))))
-            ],
+        body: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+            child: Column(
+              children: [
+                InputView(
+                    keyboardType: TextInputType.visiblePassword,
+                    controller: _oldController,
+                    nextFocusNode: _focusNode,
+                    prefixIcon: Icon(Icons.lock),
+                    hintText: S.of(context).enterOldPassword,
+                    obscure: true),
+                SizedBox(height: 10),
+                InputView(
+                    keyboardType: TextInputType.visiblePassword,
+                    controller: _newController,
+                    focusNode: _focusNode,
+                    prefixIcon: Icon(Icons.lock),
+                    hintText: S.of(context).enterNewPassword,
+                    obscure: true),
+                Container(
+                    margin: EdgeInsets.only(top: 20),
+                    height: 45,
+                    width: double.infinity,
+                    child: RaisedButton(
+                        onPressed: _oldController.text.isNotEmpty &&
+                                _newController.text.isNotEmpty
+                            ? () {
+                                showLoadingDialog(
+                                    context, S.of(context).loading);
+                                Utils.hideKeyboard(context);
+                                _changePassword();
+                              }
+                            : null,
+                        color: Theme.of(context).accentColor,
+                        child: Text(S.of(context).submit,
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 20.0))))
+              ],
+            ),
           ),
         ));
   }
