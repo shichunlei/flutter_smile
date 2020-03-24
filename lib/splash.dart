@@ -108,7 +108,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
               Positioned(
                   child: Hero(
                       tag: "logoImage",
-                      child: Image.asset("assets/smile_logo.png",
+                      child: Image.asset("assets/logo.png",
                           width: Utils.width * 0.35, height: Utils.width * 0.35)),
                   left: 0,
                   right: 0,

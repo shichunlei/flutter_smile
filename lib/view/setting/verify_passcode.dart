@@ -43,7 +43,7 @@ class _VerifyPassCodePageState extends State<VerifyPassCodePage> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Hero(
-                child: Image.asset("assets/smile_logo.png",
+                child: Image.asset("assets/logo.png",
                     width: Utils.width * 0.3, height: Utils.width * 0.3),
                 tag: "logoImage"),
             SizedBox(height: 40),

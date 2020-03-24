@@ -62,7 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
           padding: EdgeInsets.only(left: 40, right: 40, top: 100),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Hero(
-                child: Image.asset("assets/smile_logo.png",
+                child: Image.asset("assets/logo.png",
                     width: Utils.width * 0.3, height: Utils.width * 0.3),
                 tag: "logoImage"),
             SizedBox(height: 30),
