@@ -35,8 +35,8 @@ class ItemMoment extends StatelessWidget {
                     children: <Widget>[
                       gratitude.images.length > 0
                           ? gratitude.images.length > 1
-                              ? Container(
-                                  height: 180.0,
+                              ? AspectRatio(
+                                  aspectRatio: 16 / 9,
                                   child: Swiper(
                                       autoplay: true,
                                       itemCount: gratitude.images.length,
