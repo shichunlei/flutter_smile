@@ -59,7 +59,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       backgroundColor: Constant.kPrimaryColor,
       body: SingleChildScrollView(
-          padding: EdgeInsets.only(left: 40, right: 40, top: 100),
+          padding: EdgeInsets.only(left: 40, right: 40, top: 80),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Hero(
                 child: Image.asset("assets/logo.png",
@@ -104,7 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
             Hero(
                 tag: "button",
                 child: Container(
-                    margin: EdgeInsets.only(top: 20, bottom: 10),
+                    margin: EdgeInsets.only(top: 20),
                     height: 45,
                     width: double.infinity,
                     child: RaisedButton(
@@ -127,7 +127,7 @@ class _RegisterPageState extends State<RegisterPage> {
             Hero(
                 tag: "account",
                 child: Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: EdgeInsets.only(top: 20, bottom: 20),
                     child: RichText(
                         text:
                             TextSpan(style: TextStyle(fontSize: 15), children: [

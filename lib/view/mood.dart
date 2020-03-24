@@ -109,6 +109,7 @@ class _MoodPageState extends State<MoodPage> {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
+                    maxLength: 200,
                     controller: _notesController,
                     maxLines: 8,
                     decoration: InputDecoration(
@@ -148,7 +149,7 @@ class _MoodPageState extends State<MoodPage> {
 
   Future postData(BuildContext context) async {
     String result = await ApiService().postMood(email, diaryDate, emotionType,
-        emotionScore, _notesController.text.toString());
+        emotionScore, _notesController.text.toString().trim());
 
     if (result == 'ok') {
       Toast.show(context, S.of(context).saveSuccess);

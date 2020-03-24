@@ -58,6 +58,7 @@ class _EditablePageState extends State<EditablePage> {
             child: Column(children: [
               TextField(
                   maxLines: 8,
+                  maxLength: 500,
                   controller: _notesController,
                   decoration: InputDecoration(
                       hintText: S.of(context).tipGratitude,
@@ -129,10 +130,10 @@ class _EditablePageState extends State<EditablePage> {
   }
 
   Future postGratitudeData() async {
-    print(imagesName.join(','));
+    debugPrint(imagesName.join(','));
 
-    String result = await ApiService().postGratitudeData(
-        widget.email, imagesName.join(','), _notesController.text.toString());
+    String result = await ApiService().postGratitudeData(widget.email,
+        imagesName.join(','), _notesController.text.toString().trim());
 
     if (result == 'ok') {
       Toast.show(context, S.of(context).saveSuccess);

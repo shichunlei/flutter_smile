@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Constant.kPrimaryColor,
       body: SingleChildScrollView(
-          padding: EdgeInsets.only(left: 40, right: 40, top: 100),
+          padding: EdgeInsets.only(left: 40, right: 40, top: 80),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Hero(
                 child: Image.asset("assets/logo.png",
