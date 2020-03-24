@@ -117,20 +117,23 @@ void openLanguageSelectMenu(BuildContext context) async {
   await showModalBottomSheet(
       context: context,
       builder: (BuildContext bc) => Container(
-          child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: SupportLocale.values.map((local) {
-                int index = SupportLocale.values.indexOf(local);
-                return ListTile(
-                    title: Text("${mapSupportLocale(context)[local]}"),
-                    onTap: () {
-                      Provider.of<LocalProvider>(context, listen: false)
-                          .setLocal(index);
-                      Navigator.pop(context);
-                    },
-                    selected: Provider.of<LocalProvider>(context).localIndex ==
-                        index);
-              }).toList())));
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: SupportLocale.values.map((local) {
+                  int index = SupportLocale.values.indexOf(local);
+                  return ListTile(
+                      title: Text("${mapSupportLocale(context)[local]}"),
+                      onTap: () {
+                        Provider.of<LocalProvider>(context, listen: false)
+                            .setLocal(index);
+                        Navigator.pop(context);
+                      },
+                      selected:
+                          Provider.of<LocalProvider>(context).localIndex ==
+                              index);
+                }).toList()),
+            padding: EdgeInsets.only(bottom: Utils.bottomSafeHeight),
+          ));
 }
 
 void showBottomView(
@@ -155,5 +158,6 @@ void showBottomView(
                     Navigator.pop(context);
                   })
             ]),
+            padding: EdgeInsets.only(bottom: Utils.bottomSafeHeight),
           ));
 }

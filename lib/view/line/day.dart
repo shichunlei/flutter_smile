@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:smile/charts/charts.dart';
 import 'package:smile/config/nets/api.dart';
 import 'package:smile/config/constant.dart';
 import 'package:smile/models/chart.dart';
 import 'package:smile/utils/date_util.dart';
 import 'package:smile/utils/sp_util.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 import 'widgets/toggle_date.dart';
 
