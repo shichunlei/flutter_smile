@@ -148,7 +148,7 @@ class _EditablePageState extends State<EditablePage> {
 
   Future pickerImage(ImageSource source) async {
     var image = await ImagePicker.pickImage(
-        source: source, maxWidth: 600, maxHeight: 800, imageQuality: 80);
+        source: source, maxWidth: 800, maxHeight: 800, imageQuality: 80);
 
     if (image != null) {
       showLoadingDialog(context, S.of(context).saving);
@@ -160,7 +160,7 @@ class _EditablePageState extends State<EditablePage> {
           "width=> ${properties.width}\nheight=> ${properties.height}\norientation=> ${properties.orientation}");
 
       File compressedFile =
-          await FlutterNativeImage.compressImage(image.path, quality: 50);
+          await FlutterNativeImage.compressImage(image.path, quality: 80);
 
       String path = compressedFile.path;
 

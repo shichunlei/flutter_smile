@@ -57,7 +57,7 @@ class _GratitudePageState extends State<GratitudePage>
             Container(
                 alignment: Alignment.center,
                 child: Text(
-                    '${Provider.of<GratitudeProvider>(context).currentPageIndex + 1} / 3')),
+                    '${Provider.of<GratitudeProvider>(context).currentPageIndex} / 3')),
             Expanded(
                 child: Container(
                     child: Provider.of<GratitudeProvider>(context).pageView ??

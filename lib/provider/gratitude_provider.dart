@@ -45,6 +45,8 @@ class GratitudeProvider extends ChangeNotifier {
     int pagesCount =
         _gratitudeCount > 2 ? _gratitudeCount : (_gratitudeCount + 1);
 
+    _currentPageIndex = pagesCount;
+
     debugPrint("========> $pagesCount================> $_gratitudeCount");
 
     controller = PageController(initialPage: pagesCount - 1);
@@ -70,7 +72,7 @@ class GratitudeProvider extends ChangeNotifier {
         children: pages,
         controller: controller,
         onPageChanged: (index) {
-          _currentPageIndex = index;
+          _currentPageIndex = index + 1;
           notifyListeners();
         });
 
