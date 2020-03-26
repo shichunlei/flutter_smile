@@ -21,6 +21,10 @@ class GratitudeProvider extends ChangeNotifier {
 
   PageController controller;
 
+  int _currentPageIndex = 0;
+
+  int get currentPageIndex => _currentPageIndex;
+
   Future getGratitudeData() async {
     String today = DateUtils.today();
     String email = SpUtil.getString(Constant.USER_EMAIL);
@@ -63,7 +67,12 @@ class GratitudeProvider extends ChangeNotifier {
     debugPrint("pages => ${pages.length}");
 
     _pageView = PageView(
-        children: pages, controller: controller, onPageChanged: (index) {});
+        children: pages,
+        controller: controller,
+        onPageChanged: (index) {
+          _currentPageIndex = index;
+          notifyListeners();
+        });
 
     notifyListeners();
   }

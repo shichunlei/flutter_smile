@@ -54,6 +54,10 @@ class _GratitudePageState extends State<GratitudePage>
                         backgroundColor: Colors.white,
                         valueColor:
                             AlwaysStoppedAnimation<Color>(Color(0xFF0475FB))))),
+            Container(
+                alignment: Alignment.center,
+                child: Text(
+                    '${Provider.of<GratitudeProvider>(context).currentPageIndex + 1} / 3')),
             Expanded(
                 child: Container(
                     child: Provider.of<GratitudeProvider>(context).pageView ??
