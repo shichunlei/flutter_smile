@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:smile/charts/charts.dart';
+import 'package:flutter_charts/flutter_charts.dart';
 import 'package:smile/config/nets/api.dart';
 import 'package:smile/config/constant.dart';
 import 'package:smile/models/chart.dart';
