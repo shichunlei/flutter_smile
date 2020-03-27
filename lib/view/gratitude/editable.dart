@@ -101,13 +101,12 @@ class _EditablePageState extends State<EditablePage> {
                                 imagesName.removeAt(index);
                                 images.removeAt(index);
                               });
-                            },
-                          );
+                            });
                   },
                   itemCount: images.length < Constant.IMAGE_MAX_COUNT
                       ? images.length + 1
                       : images.length,
-                  physics: new NeverScrollableScrollPhysics(),
+                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true),
               Container(
                   margin: EdgeInsets.only(top: 20),

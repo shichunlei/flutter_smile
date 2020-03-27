@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class GratitudeProvider extends ChangeNotifier {
 
   PageController controller;
 
-  int _currentPageIndex = 0;
+  int _currentPageIndex = 1;
 
   int get currentPageIndex => _currentPageIndex;
 
@@ -45,11 +46,29 @@ class GratitudeProvider extends ChangeNotifier {
     int pagesCount =
         _gratitudeCount > 2 ? _gratitudeCount : (_gratitudeCount + 1);
 
-    _currentPageIndex = pagesCount;
-
     debugPrint("========> $pagesCount================> $_gratitudeCount");
 
-    controller = PageController(initialPage: pagesCount - 1);
+    buildView(pagesCount, email);
+
+    notifyListeners();
+  }
+
+  void nextPage(int page) {
+    Timer(Duration(milliseconds: 100), () {
+      controller.animateToPage(
+        page,
+        curve: Curves.linear,
+        duration: Duration(milliseconds: 10),
+      );
+    });
+
+    notifyListeners();
+  }
+
+  void buildView(int pagesCount, String email) {
+    _currentPageIndex = pagesCount;
+
+    controller = PageController();
 
     List<Widget> pages = [];
 
@@ -76,6 +95,6 @@ class GratitudeProvider extends ChangeNotifier {
           notifyListeners();
         });
 
-    notifyListeners();
+    nextPage(pages.length - 1);
   }
 }

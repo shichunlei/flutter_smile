@@ -59,9 +59,8 @@ class _GratitudePageState extends State<GratitudePage>
                 child: Text(
                     '${Provider.of<GratitudeProvider>(context).currentPageIndex} / 3')),
             Expanded(
-                child: Container(
-                    child: Provider.of<GratitudeProvider>(context).pageView ??
-                        LoadingView()))
+                child: Provider.of<GratitudeProvider>(context).pageView ??
+                    LoadingView())
           ]),
         ));
   }
