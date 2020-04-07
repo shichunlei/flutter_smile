@@ -17,6 +17,9 @@ class Constant {
   /// 存储语言
   static const String LANGUAGE = "_LANGUAGE_";
 
+  /// 存储主题
+  static const String THEME = '_THEME_';
+
   static const String SEND_EMAIL = '_SEND_EMAIL_';
 
   static const String TIME_INTERVAL = '_TIME_INTERVAL_';
@@ -63,3 +66,35 @@ Map<SupportLocale, String> mapSupportLocale(BuildContext context) => {
       SupportLocale.SIMPLIFIED_CHINESE: S.of(context).SIMPLIFIED_CHINESE,
       SupportLocale.ENGLISH: S.of(context).ENGLISH
     };
+
+Color viewBgColor;
+
+ThemeData getThemeData(String theme) {
+  ThemeData themeData;
+  if (theme == 'light') {
+    viewBgColor = Colors.white;
+    themeData = ThemeData(
+        brightness: Brightness.light,
+        backgroundColor: Constant.kPrimaryColor,
+        primaryColor: Color(0xFF0475FB),
+        accentColor: Colors.cyan[300],
+        appBarTheme: AppBarTheme(
+            color: Constant.kPrimaryColor,
+            brightness: Brightness.light,
+            iconTheme: IconThemeData(color: Color(0xFF0475FB)),
+            textTheme: TextTheme(
+                title: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20))),
+        bottomAppBarColor: Constant.kIconTabBackgroundColor);
+  } else {
+    viewBgColor = Colors.grey[800];
+    themeData = ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Color(0xFF0475FB),
+        accentColor: Colors.cyan[300],
+        appBarTheme: AppBarTheme(color: Colors.black54));
+  }
+  return themeData;
+}

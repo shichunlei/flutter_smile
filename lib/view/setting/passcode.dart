@@ -41,14 +41,9 @@ class _PassCodePageState extends State<PassCodePage> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Constant.kPrimaryColor,
+        backgroundColor: Theme.of(context).backgroundColor,
         appBar:
             AppBar(title: Text(S.of(context).titlePasscode), centerTitle: true),
         body: passCode.length > 0
@@ -86,30 +81,33 @@ class _PassCodePageState extends State<PassCodePage> {
                 margin: EdgeInsets.only(top: 40),
                 child: Column(children: <Widget>[
                   Text(S.of(context).setPattern,
-                      style: TextStyle(color: Colors.black, fontSize: 22.0)),
+                      style: TextStyle(
+                          color: Theme.of(context).textTheme.title.color,
+                          fontSize: 22.0)),
                   SizedBox(height: 20),
                   Text('$statusText',
-                      style: TextStyle(color: Colors.black, fontSize: 15.0)),
+                      style: TextStyle(
+                          color: Theme.of(context).textTheme.title.color,
+                          fontSize: 15.0)),
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 40),
-                    child: GestureView(
-                        key: gestureStateKey,
-                        size: Utils.width * 0.7,
-                        onPanUp: (List<int> items) {
-                          onPanUp(items);
-                        },
-                        onPanDown: () {
-                          gestureStateKey.currentState.selectColor =
-                              Colors.blue;
-                          setState(() {
-                            statusText = S.of(context).drawing;
-                          });
-                        },
-                        circleRadius: 10,
-                        ringRadius: 15,
-                        ringWidth: .5,
-                        lineWidth: 2),
-                  ),
+                      margin: EdgeInsets.symmetric(vertical: 40),
+                      child: GestureView(
+                          key: gestureStateKey,
+                          size: Utils.width * 0.7,
+                          onPanUp: (List<int> items) {
+                            onPanUp(items);
+                          },
+                          onPanDown: () {
+                            gestureStateKey.currentState.selectColor =
+                                Colors.blue;
+                            setState(() {
+                              statusText = S.of(context).drawing;
+                            });
+                          },
+                          circleRadius: 10,
+                          ringRadius: 15,
+                          ringWidth: .5,
+                          lineWidth: 2)),
                   Visibility(
                       visible: showBottomView,
                       child: Row(children: <Widget>[
@@ -121,10 +119,11 @@ class _PassCodePageState extends State<PassCodePage> {
                                   verifyResult = '';
                                   showBottomView = false;
                                   gestureStateKey.currentState.clearAllData();
-                                  setState(() {
-                                    statusText = S.of(context).drawPattern;
-                                  });
+                                  setState(() =>
+                                      statusText = S.of(context).drawPattern);
                                 },
+                                elevation: .0,
+                                color: Theme.of(context).accentColor,
                                 child: Text(S.of(context).clear),
                                 shape: const StadiumBorder())),
                         Container(
@@ -139,6 +138,8 @@ class _PassCodePageState extends State<PassCodePage> {
                                         Navigator.pop(context);
                                       }
                                     : null,
+                                elevation: .0,
+                                color: Theme.of(context).accentColor,
                                 child: Text(S.of(context).confirm),
                                 shape: const StadiumBorder()))
                       ], mainAxisAlignment: MainAxisAlignment.spaceAround))
@@ -148,16 +149,12 @@ class _PassCodePageState extends State<PassCodePage> {
   void onPanUp(List<int> items) {
     if (items.length < 4) {
       gestureStateKey.currentState.selectColor = Colors.red;
-      setState(() {
-        statusText = S.of(context).connectLeastFourDots;
-      });
+      setState(() => statusText = S.of(context).connectLeastFourDots);
     } else {
       showBottomView = true;
 
       if (firstResult.length > 0) {
-        items.forEach((item) {
-          verifyResult += "$item";
-        });
+        items.forEach((item) => verifyResult += "$item");
 
         debugPrint("第二次画的结果：${verifyResult.toString()}");
 

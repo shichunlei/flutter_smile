@@ -63,7 +63,6 @@ class _HomePageState extends State<HomePage>
               setState(() => _currentIndex = index);
             },
             selectedItemColor: Constant.kIconTabTextColor,
-            unselectedItemColor: Colors.black,
             type: BottomNavigationBarType.fixed,
             items: [
               BottomNavigationBarItem(
@@ -81,7 +80,6 @@ class _HomePageState extends State<HomePage>
               BottomNavigationBarItem(
                   icon: Icon(Icons.settings),
                   title: Text(S.of(context).tabSetting))
-            ],
-            backgroundColor: Constant.kIconTabBackgroundColor));
+            ]));
   }
 }

@@ -35,6 +35,7 @@ class S implements WidgetsLocalizations {
   String get confirm => "Confirm";
   String get confirmPassword => "Confirm password";
   String get connectLeastFourDots => "Connect at least 4 dots. Try again.";
+  String get dark => "dark";
   String get day => "Day";
   String get days => "Days";
   String get delete => "Dle";
@@ -66,6 +67,7 @@ class S implements WidgetsLocalizations {
   String get happiness => "Happiness";
   String get haveAccount => "Have an Account? ";
   String get language => "Language";
+  String get light => "light";
   String get loading => "Loading...";
   String get login => "Sign In";
   String get loginFailed => "Login Failed!";
@@ -106,6 +108,7 @@ class S implements WidgetsLocalizations {
   String get tabMoment => "Moment";
   String get tabMood => "Mood";
   String get tabSetting => "Setting";
+  String get theme => "Theme";
   String get third => "Third";
   String get tipGratitude => "What are you feeling grateful to? Note down things that make you smile!";
   String get titleAccount => "My Account";
@@ -199,6 +202,8 @@ class $zh_CN extends S {
   @override
   String get titleMoment => "瞬间";
   @override
+  String get light => "日间模式";
+  @override
   String get enterCode => "请输入验证码";
   @override
   String get titleSetting => "设置";
@@ -221,11 +226,15 @@ class $zh_CN extends S {
   @override
   String get addMoodStory => "请输入心情日记！";
   @override
+  String get dark => "夜间模式";
+  @override
   String get deleteSuccess => "修改成功!";
   @override
   String get sending => "正在发送...";
   @override
   String get confirmPassword => "确认密码";
+  @override
+  String get theme => "主题";
   @override
   String get userEmail => "邮箱";
   @override

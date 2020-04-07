@@ -50,7 +50,7 @@ class _MoodPageState extends State<MoodPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Constant.kPrimaryColor,
+        backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(title: Text(S.of(context).titleMood), centerTitle: true),
         body: ListView(padding: EdgeInsets.all(8), children: <Widget>[
           Form(
@@ -58,24 +58,7 @@ class _MoodPageState extends State<MoodPage> {
               key: _formKey,
               child: Column(children: <Widget>[
                 SelectTextItem(
-                    title: S.of(context).diaryDate,
-                    content: diaryDate,
-                    onTap: () {
-//                      showDatePicker(
-//                              context: context,
-//                              firstDate: DateTime.parse("20200101"),
-//                              // 初始选中日期
-//                              initialDate: DateTime.now(),
-//                              // 可选日期范围第一个日期
-//                              lastDate: DateTime.now(),
-//                              initialDatePickerMode: DatePickerMode.day)
-//                          .then((dateTime) {
-//                        setState(() {
-//                          diaryDate =
-//                              "${dateTime.year}-${dateTime.month}-${dateTime.day}";
-//                        });
-//                      });
-                    }),
+                    title: S.of(context).diaryDate, content: diaryDate),
                 SizedBox(height: 10),
                 SelectTextItem(
                     title: S.of(context).moodType,
@@ -95,9 +78,8 @@ class _MoodPageState extends State<MoodPage> {
                     label: "${emotionScore.toInt()}",
                     divisions: 10,
                     value: emotionScore,
-                    onChanged: (rating) {
-                      setState(() => this.emotionScore = rating);
-                    },
+                    onChanged: (rating) =>
+                        setState(() => this.emotionScore = rating),
                     min: -5.0,
                     max: 5.0),
                 Padding(
@@ -114,15 +96,12 @@ class _MoodPageState extends State<MoodPage> {
                     maxLines: 8,
                     decoration: InputDecoration(
                         hintText: S.of(context).addMoodStory,
-                        fillColor: Colors.white,
+                        fillColor: viewBgColor,
                         filled: true,
                         contentPadding: EdgeInsets.all(10.0),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0))),
-                    style: TextStyle(
-                        color: Colors.black,
-                        backgroundColor: Colors.white,
-                        fontSize: 18)),
+                    style: TextStyle(fontSize: 18)),
                 Container(
                     margin: EdgeInsets.only(top: 20),
                     height: 45.0,
@@ -135,7 +114,6 @@ class _MoodPageState extends State<MoodPage> {
                                 TextStyle(color: Colors.white, fontSize: 20.0)),
                         onPressed:
                             _notesController.text.isEmpty || emotionType.isEmpty
-//                            || diaryDate.isEmpty
                                 ? null
                                 : () {
                                     Utils.hideKeyboard(context);

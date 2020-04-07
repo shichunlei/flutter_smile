@@ -71,7 +71,7 @@ class _MonthViewState extends State<MonthView>
               width: double.infinity,
               margin: EdgeInsets.only(left: 20, right: 20, bottom: 20),
               padding: EdgeInsets.all(10.0),
-              decoration: BoxDecoration(color: Color(0xFFFCF6F7)),
+              decoration: BoxDecoration(color: viewBgColor),
               child: showView
                   ? SfCartesianChart(
                       primaryYAxis: NumericAxis(minimum: -5, maximum: 5),

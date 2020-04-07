@@ -62,14 +62,12 @@ class _EditablePageState extends State<EditablePage> {
                   controller: _notesController,
                   decoration: InputDecoration(
                       hintText: S.of(context).tipGratitude,
-                      fillColor: Colors.white,
+                      fillColor: viewBgColor,
                       filled: true,
                       contentPadding: EdgeInsets.all(15.0),
                       border: InputBorder.none,
-                      hintStyle: TextStyle(
-                          height: 1.2, color: Colors.grey, fontSize: 15)),
-                  style: TextStyle(
-                      height: 1.2, color: Colors.black, fontSize: 15)),
+                      hintStyle: TextStyle(height: 1.2, fontSize: 15)),
+                  style: TextStyle(height: 1.2, fontSize: 15)),
               SizedBox(height: 10),
               GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -81,7 +79,7 @@ class _EditablePageState extends State<EditablePage> {
                     return index == images.length &&
                             images.length < Constant.IMAGE_MAX_COUNT
                         ? Material(
-                            color: Colors.white,
+                            color: viewBgColor,
                             child: InkWell(
                                 onTap: () {
                                   imageUrl = '';

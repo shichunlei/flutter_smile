@@ -8,6 +8,9 @@ class LocalProvider extends ChangeNotifier {
   void init() {
     _localIndex = SpUtil.getInt(Constant.LANGUAGE, defValue: 0);
     debugPrint('config get Local $_localIndex');
+
+    _theme = SpUtil.getString(Constant.THEME, defValue: 'light');
+    debugPrint('config get Local $_theme');
   }
 
   int get localIndex => _localIndex;
@@ -15,6 +18,16 @@ class LocalProvider extends ChangeNotifier {
   void setLocal(local) async {
     _localIndex = local;
     SpUtil.setInt(Constant.LANGUAGE, local);
+    notifyListeners();
+  }
+
+  String _theme = 'light';
+
+  String get theme => _theme;
+
+  void setTheme(String theme) async {
+    _theme = theme;
+    SpUtil.setString(Constant.THEME, theme);
     notifyListeners();
   }
 }

@@ -63,7 +63,7 @@ class _AddPhoneNumberPageState extends State<AddPhoneNumberPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Constant.kPrimaryColor,
+        backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
             title: Text(S.of(context).titleAddMobile), centerTitle: true),
         body: SingleChildScrollView(

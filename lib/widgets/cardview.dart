@@ -9,18 +9,17 @@ class CardView extends StatelessWidget {
   final IconData icon;
   final int index;
 
-  CardView({
-    Key key,
-    @required this.title,
-    @required this.icon,
-    @required this.index,
-  }) : super(key: key);
+  CardView(
+      {Key key,
+      @required this.title,
+      @required this.icon,
+      @required this.index})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
         margin: EdgeInsets.all(0.5),
-        color: Colors.white,
         elevation: 0.0,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0))),
@@ -40,7 +39,7 @@ class CardView extends StatelessWidget {
                       Text('$title',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Colors.black,
+                              color: Theme.of(context).textTheme.title.color,
                               fontWeight: FontWeight.bold,
                               fontSize: 14.5))
                     ], mainAxisSize: MainAxisSize.min)))));

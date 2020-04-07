@@ -68,7 +68,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return WillPopScope(
         child: Scaffold(
-            backgroundColor: Constant.kPrimaryColor,
+            backgroundColor: Theme.of(context).backgroundColor,
             body: Stack(children: <Widget>[
               Opacity(
                   opacity: _opacityAnimation.value,
@@ -109,7 +109,8 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                   child: Hero(
                       tag: "logoImage",
                       child: Image.asset("assets/logo.png",
-                          width: Utils.width * 0.35, height: Utils.width * 0.35)),
+                          width: Utils.width * 0.35,
+                          height: Utils.width * 0.35)),
                   left: 0,
                   right: 0,
                   top: _animation.value),
@@ -144,7 +145,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                                     BoxShadow(
                                         color: Colors.grey, blurRadius: 10.0)
                                   ],
-                                  color: Colors.white,
+                                  color: viewBgColor,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(50))))),
                       scale: _scaleAnimation))

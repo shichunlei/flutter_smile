@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:smile/config/constant.dart';
 import 'package:smile/config/nets/api_service.dart';
 import 'package:smile/generated/i18n.dart';
 import 'package:smile/global/icon_font.dart';
@@ -57,13 +56,13 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Constant.kPrimaryColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SingleChildScrollView(
           padding: EdgeInsets.only(left: 40, right: 40, top: 80),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Hero(
                 child: Image.asset("assets/logo.png",
-                    width: Utils.width * 0.3, height: Utils.width * 0.3),
+                    width: Utils.width * .3, height: Utils.width * .3),
                 tag: "logoImage"),
             SizedBox(height: 30),
             Hero(

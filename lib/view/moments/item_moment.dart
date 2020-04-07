@@ -25,7 +25,6 @@ class ItemMoment extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(10.0))),
         clipBehavior: Clip.antiAlias,
         margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-        color: Colors.white,
         child: Material(
             type: MaterialType.transparency,
             child: InkWell(

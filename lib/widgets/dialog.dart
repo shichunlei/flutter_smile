@@ -5,8 +5,11 @@ import 'package:smile/config/constant.dart';
 import 'package:smile/generated/i18n.dart';
 import 'package:smile/global/icon_font.dart';
 import 'package:smile/models/mood_type.dart';
-import 'package:smile/provider/local_provider.dart';
+import 'package:smile/provider/config_provider.dart';
+import 'package:smile/utils/route_util.dart';
+import 'package:smile/utils/sp_util.dart';
 import 'package:smile/utils/utils.dart';
+import 'package:smile/view/account/login.dart';
 
 showLoadingDialog(BuildContext context, String text) async {
   showDialog<Null>(
@@ -136,6 +139,34 @@ void openLanguageSelectMenu(BuildContext context) async {
           ));
 }
 
+/// 国际化
+void openThemeSelectMenu(BuildContext context) async {
+  await showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) => Container(
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
+              ListTile(
+                  title: Text("${S.of(context).light}"),
+                  onTap: () {
+                    Provider.of<LocalProvider>(context, listen: false)
+                        .setTheme('light');
+                    Navigator.pop(context);
+                  },
+                  selected:
+                      Provider.of<LocalProvider>(context).theme == 'light'),
+              ListTile(
+                  title: Text("${S.of(context).dark}"),
+                  onTap: () {
+                    Provider.of<LocalProvider>(context, listen: false)
+                        .setTheme('dark');
+                    Navigator.pop(context);
+                  },
+                  selected: Provider.of<LocalProvider>(context).theme == 'dark')
+            ]),
+            padding: EdgeInsets.only(bottom: Utils.bottomSafeHeight),
+          ));
+}
+
 void showBottomView(
     BuildContext context, Function(ImageSource source) callBack) async {
   Utils.hideKeyboard(context);
@@ -160,4 +191,22 @@ void showBottomView(
             ]),
             padding: EdgeInsets.only(bottom: Utils.bottomSafeHeight),
           ));
+}
+
+void exitAppDialog(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (context) =>
+          AlertDialog(title: Text(S.of(context).exitAccount), actions: <Widget>[
+            FlatButton(
+                child: Text(S.of(context).cancel),
+                onPressed: () => Navigator.pop(context)),
+            FlatButton(
+                child: Text(S.of(context).sure),
+                onPressed: () {
+                  SpUtil.remove(Constant.IS_LOGIN);
+                  Navigator.of(context).pop();
+                  pushAndRemovePage(context, LoginPage());
+                })
+          ]));
 }

@@ -30,47 +30,36 @@ class _VerifyPassCodePageState extends State<VerifyPassCodePage> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Constant.kPrimaryColor,
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: Center(
+          child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
             Hero(
                 child: Image.asset("assets/logo.png",
-                    width: Utils.width * 0.3, height: Utils.width * 0.3),
+                    width: Utils.width * .3, height: Utils.width * .3),
                 tag: "logoImage"),
             SizedBox(height: 40),
             GestureView(
-              key: gestureStateKey,
-              size: Utils.width * 0.8,
-              onPanUp: (List<int> items) {
-                items.forEach((item) {
-                  verifyResult += "$item";
-                });
+                key: gestureStateKey,
+                size: Utils.width * .8,
+                onPanUp: (List<int> items) {
+                  items.forEach((item) {
+                    verifyResult += "$item";
+                  });
 
-                if (passCode == verifyResult) {
-                  gestureStateKey.currentState.selectColor = Colors.blue;
+                  if (passCode == verifyResult) {
+                    gestureStateKey.currentState.selectColor = Colors.blue;
 
-                  pushAndRemovePage(context, SplashPage());
-                } else {
-                  gestureStateKey.currentState.selectColor = Colors.red;
-                  verifyResult = '';
-                }
-              },
-              onPanDown: () {
-                gestureStateKey.currentState.selectColor = Colors.blue;
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+                    pushAndRemovePage(context, SplashPage());
+                  } else {
+                    gestureStateKey.currentState.selectColor = Colors.red;
+                    verifyResult = '';
+                  }
+                },
+                onPanDown: () =>
+                    gestureStateKey.currentState.selectColor = Colors.blue)
+          ]),
+        ));
   }
 }

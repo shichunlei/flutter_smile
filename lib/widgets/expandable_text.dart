@@ -10,7 +10,7 @@ class ExpandableText extends StatefulWidget {
     Key key,
     this.text,
     this.maxLines,
-    this.style: const TextStyle(color: Colors.black87, fontSize: 16),
+    this.style,
     this.expand: false,
   }) : super(key: key);
 
@@ -35,10 +35,17 @@ class _ExpandableTextState extends State<ExpandableText> {
         behavior: HitTestBehavior.translucent,
         child: Container(
             child: this.expand
-                ? Text(widget.text ?? '', style: widget.style)
+                ? Text(widget.text ?? '',
+                    style: widget.style ??
+                        TextStyle(
+                            fontSize: 16,
+                            color: Theme.of(context).textTheme.body1.color))
                 : Text(widget.text ?? '',
                     maxLines: widget.maxLines,
                     overflow: TextOverflow.ellipsis,
-                    style: widget.style)));
+                    style: widget.style ??
+                        TextStyle(
+                            fontSize: 16,
+                            color: Theme.of(context).textTheme.body1.color))));
   }
 }
