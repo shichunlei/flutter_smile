@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smile/utils/sp_util.dart';
 
 import '../config/constant.dart';
 
@@ -14,10 +15,16 @@ import '../utils/route_util.dart';
 
 import 'account/account.dart';
 import 'setting/change_password.dart';
-import 'setting/passcode.dart';
 
-class SettingPage extends StatelessWidget {
+class SettingPage extends StatefulWidget {
   SettingPage({Key key}) : super(key: key);
+
+  @override
+  createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<SettingPage> {
+  String passCode = '';
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +59,16 @@ class SettingPage extends StatelessWidget {
               SizedBox(height: 3),
               SelectTextItem(
                   title: S.of(context).titlePasscode,
-                  onTap: () => pushNewPage(context, PassCodePage())),
+                  onTap: () {
+                    passCode =
+                        SpUtil.getString(Constant.PASS_CODE, defValue: "");
+
+                    if (passCode.length > 0) {
+                      openDeletePasscodeMenu(context);
+                    } else {
+                      openPasscodeMenu(context);
+                    }
+                  }),
               SizedBox(height: 3),
               SelectTextItem(
                   title: S.of(context).exit,

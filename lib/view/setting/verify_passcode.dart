@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:smile/config/constant.dart';
 import 'package:smile/splash.dart';
 import 'package:smile/utils/route_util.dart';
-import 'package:smile/utils/sp_util.dart';
 import 'package:smile/utils/utils.dart';
 import 'package:smile/widgets/gesture_recognition/gesture_view.dart';
 
 class VerifyPassCodePage extends StatefulWidget {
-  VerifyPassCodePage({Key key}) : super(key: key);
+  final String passCode;
+
+  VerifyPassCodePage({Key key, @required this.passCode}) : super(key: key);
 
   @override
   createState() => _VerifyPassCodePageState();
@@ -18,15 +18,9 @@ class _VerifyPassCodePageState extends State<VerifyPassCodePage> {
 
   String verifyResult = '';
 
-  String passCode = '';
-
   @override
   void initState() {
     super.initState();
-
-    passCode = SpUtil.getString(Constant.PASS_CODE, defValue: '');
-
-    debugPrint("passCode ===> $passCode");
   }
 
   @override
@@ -48,7 +42,7 @@ class _VerifyPassCodePageState extends State<VerifyPassCodePage> {
                     verifyResult += "$item";
                   });
 
-                  if (passCode == verifyResult) {
+                  if (widget.passCode == verifyResult) {
                     gestureStateKey.currentState.selectColor = Colors.blue;
 
                     pushAndRemovePage(context, SplashPage());

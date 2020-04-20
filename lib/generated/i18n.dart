@@ -81,7 +81,9 @@ class S implements WidgetsLocalizations {
   String get no => "No";
   String get noData => "No Data";
   String get notAccount => "Don`t have an Account? ";
+  String get pattern => "pattern passcode";
   String get patternRecorded => "Pattern recorded";
+  String get pin => "pin passcode";
   String get positive => "Positive";
   String get post => "Post";
   String get pressAgain => "Press it again to exit the program";
@@ -214,6 +216,8 @@ class $zh_CN extends S {
   @override
   String get logining => "正在登陆...";
   @override
+  String get pattern => "宫格密码";
+  @override
   String get tabGratitude => "感恩";
   @override
   String get tabLine => "曲线";
@@ -287,6 +291,8 @@ class $zh_CN extends S {
   String get second => "第二条";
   @override
   String get post => "发布";
+  @override
+  String get pin => "数字密码";
   @override
   String get notAccount => "您还没有账号？ 去";
   @override

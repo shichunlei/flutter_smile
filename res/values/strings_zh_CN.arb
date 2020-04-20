@@ -112,5 +112,7 @@
   "gallery": "相册",
   "delete": "删除",
   "backToLogin": "返回登录",
-  "emailSendSuccess": "邮件发送成功！"
+  "emailSendSuccess": "邮件发送成功！",
+  "pin": "数字密码",
+  "pattern": "宫格密码"
 }

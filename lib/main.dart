@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:smile/view/setting/pin_passcode.dart';
 
 import 'provider/gratitude_provider.dart';
 import 'provider/config_provider.dart';
@@ -51,10 +52,12 @@ void main() async {
 class MyApp extends StatelessWidget {
   bool isLogin;
   String passCode;
+  String passCodeType;
 
   MyApp({Key key}) : super(key: key) {
     isLogin = SpUtil.getBool(Constant.IS_LOGIN, defValue: false);
     passCode = SpUtil.getString(Constant.PASS_CODE, defValue: '');
+    passCodeType = SpUtil.getString(Constant.PASS_CODE_TYPE, defValue: "");
   }
 
   @override
@@ -66,7 +69,9 @@ class MyApp extends StatelessWidget {
               theme: getThemeData(snapshot.theme),
               home: isLogin
                   ? (Utils.isNotEmptyString(passCode)
-                      ? VerifyPassCodePage()
+                      ? passCodeType == 'pattern'
+                          ? VerifyPassCodePage(passCode: passCode)
+                          : PinNumberPage(validData: passCode, isValid: true)
                       : SplashPage())
                   : LoginPage(),
               localizationsDelegates: [

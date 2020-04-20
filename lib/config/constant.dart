@@ -14,6 +14,8 @@ class Constant {
   /// 存储PassCode
   static const String PASS_CODE = "_PASSCODE_";
 
+  static const String PASS_CODE_TYPE = "_PASSCODE_TYPE_";
+
   /// 存储语言
   static const String LANGUAGE = "_LANGUAGE_";
 

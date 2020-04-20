@@ -112,5 +112,7 @@
   "gallery": "Gallery",
   "delete": "Dle",
   "backToLogin": "Back to Login",
-  "emailSendSuccess": "Email sent successfully!"
+  "emailSendSuccess": "Email sent successfully!",
+  "pin": "pin passcode",
+  "pattern": "pattern passcode"
 }

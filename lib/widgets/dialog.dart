@@ -10,6 +10,8 @@ import 'package:smile/utils/route_util.dart';
 import 'package:smile/utils/sp_util.dart';
 import 'package:smile/utils/utils.dart';
 import 'package:smile/view/account/login.dart';
+import 'package:smile/view/setting/pattern_passcode.dart';
+import 'package:smile/view/setting/pin_passcode.dart';
 
 showLoadingDialog(BuildContext context, String text) async {
   showDialog<Null>(
@@ -209,4 +211,69 @@ void exitAppDialog(BuildContext context) {
                   pushAndRemovePage(context, LoginPage());
                 })
           ]));
+}
+
+/// 隐私密码
+void openPasscodeMenu(BuildContext context) async {
+  await showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) => Container(
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
+              ListTile(
+                  title: Text("${S.of(context).pattern}"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    pushNewPage(context, PatternPassCodePage());
+                  }),
+              ListTile(
+                  title: Text("${S.of(context).pin}"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    pushNewPage(context, PinNumberPage());
+                  })
+            ]),
+            padding: EdgeInsets.only(bottom: Utils.bottomSafeHeight),
+          ));
+}
+
+/// 隐私密码
+void openDeletePasscodeMenu(BuildContext context) async {
+  await showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) => Container(
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
+              ListTile(
+                  title: Text("${S.of(context).turnOffLock}"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    deletePasscodeDialog(context);
+                  }),
+              ListTile(
+                  title: Text("${S.of(context).changeScreenLock}"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    openPasscodeMenu(context);
+                  })
+            ]),
+            padding: EdgeInsets.only(bottom: Utils.bottomSafeHeight),
+          ));
+}
+
+void deletePasscodeDialog(BuildContext context) {
+  showDialog(
+      builder: (context) => AlertDialog(
+              title: Text(S.of(context).deletePassCode),
+              actions: <Widget>[
+                FlatButton(
+                    child: Text(S.of(context).cancel),
+                    onPressed: () => Navigator.pop(context)),
+                FlatButton(
+                    child: Text(S.of(context).sure),
+                    onPressed: () {
+                      SpUtil.remove(Constant.PASS_CODE);
+                      SpUtil.remove(Constant.PASS_CODE_TYPE);
+                      Navigator.pop(context);
+                    })
+              ]),
+      context: context);
 }
